@@ -1,0 +1,163 @@
+{
+  "app_type": "saas_dashboard",
+  "app_name": "EventFlow",
+  "brand_name": "EventFlow",
+  "tagline": "Run flawless events for up to 50 attendees free, or scale to thousands with Pro at $199/event",
+  "primary_color": "#0077B6",
+  "accent_color": "#F4A261",
+  "secondary_color": "#0F1A2E",
+  "font_heading": "Space Grotesk",
+  "font_body": "DM Sans",
+  "voice_tone": "professional, energetic, reliable, clear",
+  "logo_concept": "A flowing wave made of event ticket icons in a dynamic blue curve",
+  "brand_values": [
+    "Seamless experience",
+    "Engagement",
+    "Data-driven insights"
+  ],
+  "sections": [
+    "hero",
+    "features",
+    "pricing",
+    "testimonials",
+    "cta"
+  ],
+  "backend_resources": [
+    "events",
+    "speakers",
+    "agendas",
+    "registrations",
+    "polls",
+    "analytics"
+  ],
+  "features": [
+    "Speaker management",
+    "Agenda builder",
+    "Attendee registration",
+    "Branded event app",
+    "Live Q&A and polls",
+    "Post-event analytics"
+  ],
+  "pricing_tiers": [
+    "Free: $0 — 50 attendees, core features",
+    "Pro: $199/event — unlimited attendees, full features",
+    "Annual: $1,499 — Pro features for up to 10 events per year"
+  ],
+  "target_customer": "Conference organizers",
+  "key_metric": "Attendee engagement and event ROI",
+  "hero_stats": [
+    {
+      "value": "50",
+      "label": "Free attendees per event"
+    },
+    {
+      "value": "199",
+      "label": "Pro price per event in USD"
+    },
+    {
+      "value": "1,499",
+      "label": "Annual plan for up to 10 events"
+    }
+  ],
+  "api_contract": [
+    {
+      "method": "GET",
+      "path": "/api/metrics",
+      "response": "{\"total_events\": 0, \"total_attendees\": 0, \"avg_engagement\": 0.0}",
+      "description": "Returns aggregated dashboard metrics"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events",
+      "response": "[{\"id\": \"uuid\", \"name\": \"string\", \"date\": \"string\", \"attendee_count\": 0}]",
+      "description": "Lists all events for the user"
+    },
+    {
+      "method": "POST",
+      "path": "/api/events",
+      "response": "{\"id\": \"uuid\", \"name\": \"string\", \"date\": \"string\"}",
+      "description": "Creates a new event"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/:id/speakers",
+      "response": "[{\"id\": \"uuid\", \"name\": \"string\", \"bio\": \"string\", \"photo_url\": \"string\"}]",
+      "description": "Returns speakers for a given event"
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/:id/speakers",
+      "response": "{\"id\": \"uuid\", \"name\": \"string\", \"bio\": \"string\"}",
+      "description": "Adds a speaker to an event"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/:id/agenda",
+      "response": "[{\"id\": \"uuid\", \"title\": \"string\", \"start_time\": \"string\", \"end_time\": \"string\", \"speaker_id\": \"uuid\"}]",
+      "description": "Returns agenda items for an event"
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/:id/agenda",
+      "response": "{\"id\": \"uuid\", \"title\": \"string\", \"start_time\": \"string\", \"end_time\": \"string\"}",
+      "description": "Adds an agenda item"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/:id/registrations",
+      "response": "[{\"id\": \"uuid\", \"attendee_name\": \"string\", \"email\": \"string\", \"registered_at\": \"string\"}]",
+      "description": "Returns attendee registrations"
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/:id/registrations",
+      "response": "{\"id\": \"uuid\", \"attendee_name\": \"string\", \"email\": \"string\"}",
+      "description": "Registers a new attendee"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/:id/polls",
+      "response": "[{\"id\": \"uuid\", \"question\": \"string\", \"options\": [\"string\"], \"results\": {}}]",
+      "description": "Returns polls for an event"
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/:id/polls",
+      "response": "{\"id\": \"uuid\", \"question\": \"string\"}",
+      "description": "Creates a new poll"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/:id/analytics",
+      "response": "{\"total_attendees\": 0, \"engagement_rate\": 0.0, \"poll_participation\": 0}",
+      "description": "Returns post-event analytics"
+    }
+  ],
+  "roadmap": [
+    {
+      "id": "m1",
+      "title": "Event creation, attendee registration, and core metrics API",
+      "status": "pending"
+    },
+    {
+      "id": "m2",
+      "title": "Speaker management and agenda builder UI and endpoints",
+      "status": "pending"
+    },
+    {
+      "id": "m3",
+      "title": "Branded event app and live Q&A/polls feature set",
+      "status": "pending"
+    },
+    {
+      "id": "m4",
+      "title": "Post-event analytics dashboard and reporting",
+      "status": "pending"
+    },
+    {
+      "id": "m5",
+      "title": "Pricing tiers implementation and payment integration",
+      "status": "pending"
+    }
+  ]
+}
