@@ -26,7 +26,10 @@ function asString(value: unknown): string {
 
 function asBool(value: unknown): boolean {
   if (typeof value === 'boolean') return value;
-  if (typeof value === 'string') return value.toLowerCase() === 'true' || value === '1';
+  if (typeof value === 'string') {
+    const v = value.trim().toLowerCase();
+    return v === 'true' || v === '1' || v === 'yes';
+  }
   return false;
 }
 
