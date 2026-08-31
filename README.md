@@ -7,7 +7,8 @@ Elite high-ticket SaaS platform: multi-tenant AI research, generation, and outre
 | Package | Role |
 |---------|------|
 | `cloudflare-worker/` | Secure API proxy, Teable router, Dashform onboarding, orchestration pipeline |
-| `chrome-extension/` | Manifest V3 extension — triggers research, generation, and outreach via JWT |
+| `apps/plugthis-extension/` | PlugThis.ai MV3 extension (mock-first Worker client) |
+| `chrome-extension/` | Earlier popup prototype (superseded by `apps/plugthis-extension` for PlugThis) |
 | `config/` | Deployment templates and env var examples (no secrets) |
 
 ### Security (non-negotiable)

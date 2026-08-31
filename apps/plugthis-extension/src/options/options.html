@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PlugThis.ai Options</title>
+    <link rel="stylesheet" href="options.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@560;600&family=Outfit:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main class="wrap">
+      <header>
+        <p class="eyebrow">PlugThis.ai · The Leverage Lab</p>
+        <h1>Extension options</h1>
+        <p class="lede">
+          Configure the Worker endpoint and executive identity. Never paste Teable tokens, AI vendor
+          keys, or other secrets here — the Worker holds those.
+        </p>
+      </header>
+
+      <form id="settings-form" class="form">
+        <label>
+          Worker API Base URL
+          <input id="workerApiBaseUrl" type="url" required placeholder="https://api.theleveragelab.com" />
+        </label>
+
+        <label>
+          Extension License Key
+          <input id="extensionLicenseKey" type="text" autocomplete="off" placeholder="ext_…" />
+        </label>
+
+        <label>
+          Executive Email
+          <input id="executiveEmail" type="email" autocomplete="off" placeholder="you@company.com" />
+        </label>
+
+        <label>
+          Tenant ID <span class="optional">(optional)</span>
+          <input id="tenantId" type="text" autocomplete="off" placeholder="optional" />
+        </label>
+
+        <label class="check">
+          <input id="debugMode" type="checkbox" />
+          <span>Debug Mode</span>
+        </label>
+
+        <label class="check">
+          <input id="mockMode" type="checkbox" />
+          <span>Mock Mode (recommended until Worker + Teable template base are live)</span>
+        </label>
+
+        <div class="actions">
+          <button type="submit" class="btn">Save settings</button>
+          <button type="button" id="validate" class="btn btn--ghost">Validate license</button>
+        </div>
+      </form>
+
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </main>
+    <script type="module" src="options.ts"></script>
+  </body>
+</html>
