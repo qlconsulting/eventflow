@@ -93,7 +93,7 @@
     "Keep API keys in Cloudflare secrets — never Global_System_Variables."
   ],
   "pending": {
-    "TEABLE_SPACE_ID": "REQUIRED — space that receives per-client bases",
-    "TEABLE_API_KEY": "Cloudflare secret / .dev.vars"
+    "TEABLE_API_KEY": "Cloudflare secret / .dev.vars only — never commit",
+    "TEABLE_SPACE_ID": "spcVj6FkI8DhUVqEOmu (The Leverage Lab space — filled 2026-08-31)"
   }
 }
