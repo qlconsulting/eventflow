@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+
+# Environment & secrets (never commit master API keys)
+.env
+.env.*
+!.env.example
+.dev.vars
+*.pem
+*.key
+
+# Cloudflare Wrangler — local deploy config may contain secrets
+# Track config/wrangler.example.toml instead; keep real wrangler.toml local
+cloudflare-worker/wrangler.toml
+
+# Build artifacts
+dist/
+build/
+.wrangler/
+.mf/
+.dev.vars*
+
+# TypeScript / tooling
+*.tsbuildinfo
+.cache/
+.turbo/
+
+# OS & editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs & coverage
+logs/
+*.log
+npm-debug.log*
+coverage/
+.nyc_output/
+
+# Chrome extension packaging
+*.crx
+*.pem
+chrome-extension.zip
+apps/plugthis-extension/dist/
+apps/plugthis-extension/node_modules/

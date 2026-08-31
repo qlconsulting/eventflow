@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "The Leverage Lab",
+  "description": "Executive on-demand research, generation, and outreach via The Leverage Lab.",
+  "version": "0.1.0",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "The Leverage Lab"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": ["storage", "activeTab", "tabs"],
+  "host_permissions": [
+    "https://api.theleveragelab.com/*"
+  ],
+  "icons": {}
+}

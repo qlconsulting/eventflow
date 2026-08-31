@@ -1,0 +1,47 @@
+# Example Wrangler config for The Leverage Lab Cloudflare Worker.
+# Copy to cloudflare-worker/wrangler.toml and fill secrets via `wrangler secret put`.
+# Do NOT commit cloudflare-worker/wrangler.toml (see root .gitignore).
+# IDs from config/teable-manifest.json (2026-08-31).
+
+name = "the-leverage-lab-api"
+main = "src/index.ts"
+compatibility_date = "2025-02-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ENVIRONMENT = "development"
+API_BASE_URL = "https://api.theleveragelab.com"
+ALLOWED_ORIGINS = "chrome-extension://YOUR_EXTENSION_ID,https://lab.theleveragelab.com,https://app.theleveragelab.com"
+LAB_DASHBOARD_URL = "https://lab.theleveragelab.com"
+DEFAULT_TIMEZONE = "America/Los_Angeles"
+DASHFORM_FORM_ID = "nr0HMXaCSM"
+DASHFORM_FORM_UUID = "5d3e962a-bc3a-41c3-b88b-afbfb45aab78"
+DASHFORM_ORGANIZATION_ID = "fe655e99-f58f-4cd9-a135-b4f423a33b47"
+
+TEABLE_API_BASE_URL = "https://app.teable.ai/api"
+TEABLE_MASTER_BASE_ID = "bsepxFqD62xkJPeEU8O"
+TEABLE_TEMPLATE_FOLDER_ID = "bnfOKrLgZQSoxtvLXxf"
+# REQUIRED before onboarding can provision client bases
+TEABLE_SPACE_ID = "spcVj6FkI8DhUVqEOmu"
+
+TEABLE_EXECUTIVE_DIRECTORY_TABLE_ID = "tblKx1CqkYTqfwaYC3M"
+TEABLE_PROVISIONING_LOG_TABLE_ID = "tbldvmRTNyzYa4dlMXR"
+TEABLE_MASTER_PROMPT_TEMPLATES_TABLE_ID = "tblZbo1aLF9OfMRDLYu"
+TEABLE_TONE_PERSONA_MATRIX_TABLE_ID = "tbl0z6f3JJyYa8kxUfh"
+TEABLE_GLOBAL_SYSTEM_VARIABLES_TABLE_ID = "tblFjTHFUnWzQ7dGApI"
+TEABLE_API_CREDIT_LEDGER_TABLE_ID = "tblmJGO739oqH1M8QaJ"
+
+# Source template table IDs (Master Control folder) — reference / seed reads only
+TEABLE_TMPL_CLIENT_PROFILE_TABLE_ID = "tblh8hHh7tfH8Vk02qT"
+TEABLE_TMPL_PROMPT_LIBRARY_TABLE_ID = "tblP5rtg5BLvC4Mg4Wq"
+TEABLE_TMPL_INBOX_LEADS_TABLE_ID = "tbl7IqWrTtFVeUV4sDJ"
+TEABLE_TMPL_RESEARCH_RUNS_TABLE_ID = "tblU48f7dcGMDUaIf0d"
+TEABLE_TMPL_THOUGHT_LEADERSHIP_TABLE_ID = "tblwCPo3spGz0uktggu"
+TEABLE_TMPL_OUTREACH_QUEUE_TABLE_ID = "tbl62wCdnX9iCA42RCs"
+TEABLE_TMPL_ASSET_LIBRARY_TABLE_ID = "tblAbsreCM1l8MDYuCU"
+TEABLE_TMPL_AUTOMATION_LOG_TABLE_ID = "tblh4J2Tv0IvE5HeGx0"
+TEABLE_TMPL_WEB_PROPERTIES_TABLE_ID = "tblRcDuQSxO3l24pMqy"
+
+# Secrets — `wrangler secret put <NAME>`:
+# TEABLE_API_KEY, RETRIEVER_API_KEY, KATTEB_API_KEY, QOLABA_API_KEY,
+# FUSE_API_KEY, JWT_SECRET, DASHFORM_WEBHOOK_SECRET, DASHFORM_API_KEY

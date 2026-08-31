@@ -1,0 +1,22 @@
+{
+  "name": "@the-leverage-lab/cloudflare-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Secure API proxy, Teable router, and orchestration for The Leverage Lab",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "tail": "wrangler tail",
+    "seed:gsv": "node ../scripts/seed-global-vars.mjs"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250204.0",
+    "typescript": "^5.7.3",
+    "wrangler": "^3.109.1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

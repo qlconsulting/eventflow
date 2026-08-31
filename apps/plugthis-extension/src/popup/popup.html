@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PlugThis.ai</title>
+    <link rel="stylesheet" href="popup.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@560;600&family=Outfit:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="brand">
+        <p class="brand__mark">PlugThis.ai</p>
+        <p class="brand__sub">The Leverage Lab</p>
+      </header>
+
+      <section class="page" aria-label="Current page">
+        <p class="label">Current page</p>
+        <h1 id="page-title" class="page__title">Loading…</h1>
+        <p id="page-url" class="page__url"></p>
+        <p id="mode-badge" class="badge">Mock mode</p>
+      </section>
+
+      <section class="actions" aria-label="Actions">
+        <button type="button" class="btn" data-action="capture_lead">Capture Lead</button>
+        <button type="button" class="btn" data-action="run_research">Run Research</button>
+        <button type="button" class="btn" data-action="draft_linkedin">Draft LinkedIn Post</button>
+        <button type="button" class="btn" data-action="draft_email">Draft Email Hook</button>
+        <button type="button" class="btn" data-action="log_web_insight">Log Web Insight</button>
+      </section>
+
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+
+      <footer class="footer">
+        <button type="button" id="open-options" class="linkish">Open Options</button>
+      </footer>
+    </div>
+    <script type="module" src="popup.ts"></script>
+  </body>
+</html>

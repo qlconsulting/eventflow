@@ -1,0 +1,223 @@
+{
+  "_status": "planning_example",
+  "_verified_via_dashform_mcp": false,
+  "_verified_via_rest": "forms_list_metadata_only",
+  "_notes": [
+    "Do not treat answer keys or webhook envelope as live until Dashform MCP OAuth confirms them.",
+    "Do not hardcode Teable Base IDs here — map to table.field names only until Teable prep returns IDs.",
+    "Recommended live form candidate (name match only): public_id nr0HMXaCSM / uuid 5d3e962a-bc3a-41c3-b88b-afbfb45aab78."
+  ],
+  "dashform": {
+    "recommended_form": {
+      "name": "The Leverage Lab — Executive Intake",
+      "public_id": "nr0HMXaCSM",
+      "uuid": "5d3e962a-bc3a-41c3-b88b-afbfb45aab78",
+      "planning_form_id_alias": "frm_leverage_lab_intake",
+      "status": "unconfirmed_questions_and_publish_state"
+    },
+    "expected_envelope": {
+      "status": "unconfirmed",
+      "example": {
+        "event": "form.submitted",
+        "form_id": "frm_leverage_lab_intake",
+        "submission_id": "sub_example_001",
+        "submitted_at": "2026-01-01T18:30:00Z",
+        "answers": {
+          "exec_name": "Sample Executive",
+          "exec_email": "executive@example.com",
+          "company_name": "Example Company",
+          "company_website": "https://example.com",
+          "executive_linkedin": "https://linkedin.com/in/example",
+          "target_audience": "High-value B2B decision makers",
+          "core_offer": "Managed web presence, monitoring, security, and AI-powered authority building",
+          "brand_tone": "Direct/Opinionated",
+          "primary_pain_point": "turning online visibility into trusted business opportunities",
+          "preferred_channels": ["LinkedIn", "Email", "Blog"],
+          "web_management_client": true,
+          "managed_domain": "https://example.com",
+          "web_management_scope": [
+            "Website Management",
+            "Security Monitoring",
+            "Uptime Monitoring",
+            "Backups"
+          ]
+        }
+      }
+    }
+  },
+  "field_map": [
+    {
+      "dashform_key": "exec_name",
+      "aliases": ["executive_name", "full_name", "name"],
+      "teable_targets": ["Client_Profile.Executive Name", "Executive_Directory.Executive Name"],
+      "type": "string",
+      "required": true,
+      "status": "unconfirmed"
+    },
+    {
+      "dashform_key": "exec_email",
+      "aliases": ["email", "executive_email"],
+      "teable_targets": ["Client_Profile.Executive Email", "Executive_Directory.Executive Email"],
+      "type": "email_string",
+      "required": true,
+      "status": "unconfirmed"
+    },
+    {
+      "dashform_key": "company_name",
+      "aliases": ["company", "organization_name"],
+      "teable_targets": ["Client_Profile.Company Name", "Executive_Directory.Company Name"],
+      "type": "string",
+      "required": true,
+      "status": "unconfirmed"
+    },
+    {
+      "dashform_key": "company_website",
+      "aliases": ["website", "company_url"],
+      "teable_targets": ["Client_Profile.Company Website", "Executive_Directory.Company Website"],
+      "type": "url_string",
+      "required": false,
+      "status": "unconfirmed"
+    },
+    {
+      "dashform_key": "executive_linkedin",
+      "aliases": ["linkedin_profile", "linkedin_url", "linkedin"],
+      "teable_targets": ["Client_Profile.Executive LinkedIn", "Executive_Directory.Executive LinkedIn"],
+      "type": "url_string",
+      "required": false,
+      "status": "unconfirmed"
+    },
+    {
+      "dashform_key": "target_audience",
+      "aliases": ["audience", "ideal_client"],
+      "teable_targets": ["Client_Profile.Target Audience"],
+      "type": "long_text",
+      "required": true,
+      "status": "unconfirmed"
+    },
+    {
+      "dashform_key": "core_offer",
+      "aliases": ["offer_description", "offer", "primary_offer"],
+      "teable_targets": ["Client_Profile.Core Offer"],
+      "type": "long_text",
+      "required": true,
+      "status": "unconfirmed"
+    },
+    {
+      "dashform_key": "brand_tone",
+      "aliases": ["tone", "voice", "persona"],
+      "teable_targets": ["Client_Profile.Brand Tone"],
+      "type": "single_select",
+      "allowed_values_planned": [
+        "Visionary/Inspirational",
+        "Direct/Opinionated",
+        "Academic/Analytical",
+        "Bold/Provocative"
+      ],
+      "required": true,
+      "status": "unconfirmed",
+      "notes": "Must match Tone_Persona_Matrix / Client_Profile select options exactly."
+    },
+    {
+      "dashform_key": "primary_pain_point",
+      "aliases": ["pain_point", "main_problem"],
+      "teable_targets": ["Client_Profile.Primary Pain Point"],
+      "type": "long_text",
+      "required": true,
+      "status": "unconfirmed"
+    },
+    {
+      "dashform_key": "preferred_channels",
+      "aliases": ["channels", "content_channels"],
+      "teable_targets": ["Client_Profile.Preferred Channels"],
+      "type": "multi_select_or_array",
+      "allowed_values_planned": ["LinkedIn", "Email", "Blog", "Newsletter", "Website Content"],
+      "required": true,
+      "status": "unconfirmed"
+    },
+    {
+      "dashform_key": "web_management_client",
+      "aliases": ["is_web_management_client", "web_client"],
+      "teable_targets": [
+        "Client_Profile.Web Management Client",
+        "Executive_Directory.Web Management Client"
+      ],
+      "type": "boolean_or_yes_no",
+      "coercion": {
+        "true": ["true", "1", "yes", "Yes"],
+        "false": ["false", "0", "no", "No", ""]
+      },
+      "required": true,
+      "status": "unconfirmed",
+      "notes": "Local planned form uses Yes/No single-choice; planning payload uses boolean."
+    },
+    {
+      "dashform_key": "managed_domain",
+      "aliases": ["domain", "primary_domain"],
+      "teable_targets": ["Client_Profile.Managed Domain", "Web_Properties.Domain URL"],
+      "type": "url_string",
+      "required": false,
+      "status": "unconfirmed",
+      "notes": "Also candidate for Web_Properties.Property Name derivation and Executive_Directory.Domain Mapped."
+    },
+    {
+      "dashform_key": "web_management_scope",
+      "aliases": ["web_scope", "management_scope"],
+      "teable_targets": ["Client_Profile.Web Management Scope"],
+      "type": "multi_select_or_array",
+      "allowed_values_planned": [
+        "Website Management",
+        "Security Monitoring",
+        "Uptime Monitoring",
+        "Backups",
+        "Content Updates",
+        "SEO Support",
+        "Performance Monitoring"
+      ],
+      "required": false,
+      "status": "unconfirmed"
+    },
+    {
+      "dashform_key": "brand_voice_notes",
+      "aliases": ["voice_notes", "brand_notes"],
+      "teable_targets": ["Client_Profile.Brand Voice Notes"],
+      "type": "long_text",
+      "required": false,
+      "status": "unconfirmed"
+    },
+    {
+      "dashform_key": "client_package",
+      "aliases": ["package", "plan"],
+      "teable_targets": ["Executive_Directory.Client Package"],
+      "type": "single_select",
+      "allowed_values_planned": [
+        "Web Management Only",
+        "The Leverage Lab",
+        "The Leverage Lab + Web Management",
+        "VIP Managed Growth"
+      ],
+      "required": false,
+      "status": "unconfirmed"
+    }
+  ],
+  "envelope_map": {
+    "event": { "status": "unconfirmed", "notes": "Expect form.submitted or similar" },
+    "form_id": {
+      "status": "unconfirmed",
+      "accept": ["nr0HMXaCSM", "5d3e962a-bc3a-41c3-b88b-afbfb45aab78", "frm_leverage_lab_intake"]
+    },
+    "submission_id": {
+      "status": "unconfirmed",
+      "teable_targets": ["Executive_Directory.Dashform Submission ID"]
+    },
+    "submitted_at": {
+      "status": "unconfirmed",
+      "teable_targets": ["Client_Profile.Created Date", "Executive_Directory.Onboarding Date"]
+    }
+  },
+  "webhook": {
+    "configured": false,
+    "destination": "TBD — future Worker POST /api/onboarding",
+    "auth": "TBD — shared secret header/body; Cloudflare secret only",
+    "status": "do_not_activate_until_teable_and_mcp_verified"
+  }
+}

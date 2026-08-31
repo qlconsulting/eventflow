@@ -1,0 +1,171 @@
+{
+  "name": "The Leverage Lab \u2014 Executive Intake",
+  "description": "Premium executive onboarding for The Leverage Lab. Answer keys map to Worker DashformAnswers / Teable Client_Profile.",
+  "type": "structured",
+  "tone": "professional, executive, concise",
+  "welcomeScreen": {
+    "title": "The Leverage Lab",
+    "message": "Executive intake for your private workspace. This takes about 4 minutes.",
+    "callToActionText": "Begin Intake",
+    "background": {
+      "type": "color",
+      "colorValue": "#0B1220"
+    }
+  },
+  "questions": [
+    {
+      "key": "exec_name",
+      "type": "open-ended",
+      "description": "Executive full name",
+      "required": true
+    },
+    {
+      "key": "exec_email",
+      "type": "open-ended",
+      "description": "Executive email address",
+      "required": true
+    },
+    {
+      "key": "company_name",
+      "type": "open-ended",
+      "description": "Company name",
+      "required": true
+    },
+    {
+      "key": "company_website",
+      "type": "open-ended",
+      "description": "Company website URL",
+      "required": false
+    },
+    {
+      "key": "executive_linkedin",
+      "type": "open-ended",
+      "description": "Executive LinkedIn URL",
+      "required": false
+    },
+    {
+      "key": "target_audience",
+      "type": "open-ended",
+      "description": "Who is your primary target audience?",
+      "required": true
+    },
+    {
+      "key": "core_offer",
+      "type": "open-ended",
+      "description": "What is your core offer?",
+      "required": true
+    },
+    {
+      "key": "brand_tone",
+      "type": "single-choice",
+      "description": "Select your brand tone",
+      "required": true,
+      "options": [
+        "Visionary/Inspirational",
+        "Direct/Opinionated",
+        "Academic/Analytical",
+        "Bold/Provocative"
+      ]
+    },
+    {
+      "key": "primary_pain_point",
+      "type": "open-ended",
+      "description": "Primary pain point you help solve",
+      "required": true
+    },
+    {
+      "key": "preferred_channels",
+      "type": "multiple-choice",
+      "description": "Preferred content / outreach channels",
+      "required": true,
+      "options": [
+        "LinkedIn",
+        "Email",
+        "Blog",
+        "Newsletter",
+        "Website Content"
+      ]
+    },
+    {
+      "key": "web_management_client",
+      "type": "single-choice",
+      "description": "Are you also a web management client with Quintin Lee?",
+      "required": true,
+      "options": [
+        "Yes",
+        "No"
+      ]
+    },
+    {
+      "key": "managed_domain",
+      "type": "open-ended",
+      "description": "Managed domain URL (if web management client)",
+      "required": false
+    },
+    {
+      "key": "web_management_scope",
+      "type": "multiple-choice",
+      "description": "Web management scope (if applicable)",
+      "required": false,
+      "options": [
+        "Website Management",
+        "Security Monitoring",
+        "Uptime Monitoring",
+        "Backups",
+        "Content Updates",
+        "SEO Support",
+        "Performance Monitoring"
+      ]
+    },
+    {
+      "key": "brand_voice_notes",
+      "type": "open-ended",
+      "description": "Additional brand voice notes (optional)",
+      "required": false
+    },
+    {
+      "key": "client_package",
+      "type": "single-choice",
+      "description": "Client package",
+      "required": true,
+      "options": [
+        "Web Management Only",
+        "The Leverage Lab",
+        "The Leverage Lab + Web Management",
+        "VIP Managed Growth"
+      ]
+    }
+  ],
+  "endScreen": {
+    "title": "Intake received",
+    "message": "Your Leverage Lab workspace will be provisioned next. You will receive access details by email.",
+    "callToActionText": null,
+    "callToActionUrl": null,
+    "background": {
+      "type": "color",
+      "colorValue": "#0B1220"
+    }
+  },
+  "theme": {
+    "colorBackground": "#0B1220",
+    "colorForeground": "#E8EDF7",
+    "colorPrimary": "#D4AF37",
+    "fontFamily": "serif"
+  },
+  "branding": {
+    "hideWatermark": true
+  },
+  "_meta": {
+    "formId": "5d3e962a-bc3a-41c3-b88b-afbfb45aab78",
+    "publicId": "nr0HMXaCSM",
+    "organizationId": "fe655e99-f58f-4cd9-a135-b4f423a33b47",
+    "shareUrlHint": "https://getaiform.com/f/nr0HMXaCSM",
+    "editUrlHint": "https://getaiform.com/forms/5d3e962a-bc3a-41c3-b88b-afbfb45aab78",
+    "status": "shell_created_via_rest_api",
+    "note": "REST cannot persist/verify questions. Finalize in Dashform UI or via MCP OAuth using this schema. Share URL still 404 until published. Do not wire webhook yet. See docs/pre-webhook-blockers.md.",
+    "blockers": [
+      "Cloudflare: wrangler secret put TEABLE_API_KEY (agent lacks wrangler login)",
+      "Dashform: finalize+publish questions for nr0HMXaCSM and verify answer keys"
+    ]
+  }
+}

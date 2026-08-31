@@ -1,0 +1,8 @@
+{
+  "ok": true,
+  "mock": true,
+  "lead_id": "mock_lead_example",
+  "research_run_id": "mock_run_example",
+  "automation_log_id": "mock_log_example",
+  "message": "Mock lead capture — Worker will later write Inbox_Leads / Research_Runs / Automation_Log / API_Credit_Ledger."
+}

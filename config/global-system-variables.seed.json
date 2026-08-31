@@ -1,0 +1,78 @@
+{
+  "_comment": "Rows to upsert into Master Control Global_System_Variables (tblFjTHFUnWzQ7dGApI). Non-secret placeholders only. Apply with TEABLE_API_KEY via Worker admin or a one-shot script.",
+  "baseId": "bsepxFqD62xkJPeEU8O",
+  "tableId": "tblFjTHFUnWzQ7dGApI",
+  "tableUrl": "https://app.teable.ai/base/bsepxFqD62xkJPeEU8O/table/tblFjTHFUnWzQ7dGApI",
+  "fieldKeys": {
+    "key": "Variable Key",
+    "value": "Variable Value",
+    "description": "Description"
+  },
+  "rows": [
+    {
+      "Variable Key": "TEMPLATE_EXECUTIVE_WORKSPACE_BASE_ID",
+      "Variable Value": "",
+      "Description": "Intentionally blank. Template is a folder inside Master Control, not a separate base."
+    },
+    {
+      "Variable Key": "TEMPLATE_EXECUTIVE_WORKSPACE_FOLDER_ID",
+      "Variable Value": "bnfOKrLgZQSoxtvLXxf",
+      "Description": "Folder node inside Master Control containing client template tables. Worker provisions via POST /base/duplicate with nodes=[this id]."
+    },
+    {
+      "Variable Key": "MASTER_CONTROL_BASE_ID",
+      "Variable Value": "bsepxFqD62xkJPeEU8O",
+      "Description": "Master Control Base ID."
+    },
+    {
+      "Variable Key": "LAB_DASHBOARD_URL",
+      "Variable Value": "https://lab.theleveragelab.com",
+      "Description": "Client-facing Lab dashboard URL."
+    },
+    {
+      "Variable Key": "WORKER_API_BASE_URL",
+      "Variable Value": "https://api.theleveragelab.com",
+      "Description": "Cloudflare Worker public API base URL."
+    },
+    {
+      "Variable Key": "CHROME_EXTENSION_INSTALL_URL",
+      "Variable Value": "TBD",
+      "Description": "Chrome Web Store or sideload install URL for The Leverage Lab extension."
+    },
+    {
+      "Variable Key": "DASHFORM_FORM_ID",
+      "Variable Value": "nr0HMXaCSM",
+      "Description": "Dashform public_id for The Leverage Lab \u2014 Executive Intake. Finish questions via MCP/UI before enabling webhook."
+    },
+    {
+      "Variable Key": "DASHFORM_FORM_UUID",
+      "Variable Value": "5d3e962a-bc3a-41c3-b88b-afbfb45aab78",
+      "Description": "Dashform internal form UUID for The Leverage Lab \u2014 Executive Intake."
+    },
+    {
+      "Variable Key": "DEFAULT_TIMEZONE",
+      "Variable Value": "America/Los_Angeles",
+      "Description": "Display timezone for Teable date fields."
+    },
+    {
+      "Variable Key": "MASTER_TEMPLATE_VERSION",
+      "Variable Value": "v1.0",
+      "Description": "Current master template / prompt seed version."
+    },
+    {
+      "Variable Key": "MAINTENANCE_MODE",
+      "Variable Value": "false",
+      "Description": "When true, Worker should reject non-health traffic."
+    },
+    {
+      "Variable Key": "WELCOME_EMAIL_FROM",
+      "Variable Value": "TBD",
+      "Description": "From address for welcome email (not stored as a secret; SMTP credentials stay in Cloudflare)."
+    },
+    {
+      "Variable Key": "TEABLE_SPACE_ID",
+      "Variable Value": "spcVj6FkI8DhUVqEOmu",
+      "Description": "Space that receives per-client duplicated bases (The Leverage Lab). Also set as Cloudflare Worker env TEABLE_SPACE_ID."
+    }
+  ]
+}

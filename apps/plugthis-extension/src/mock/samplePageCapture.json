@@ -1,0 +1,18 @@
+{
+  "source": "plugthis_extension",
+  "captured_at": "2026-01-01T18:30:00.000Z",
+  "page": {
+    "title": "Example Company — Home",
+    "url": "https://example.com/",
+    "canonical_url": "https://example.com/",
+    "meta_description": "Example Company helps B2B teams run reliable web operations.",
+    "h1": "Operate with leverage",
+    "selected_text": null,
+    "visible_text_excerpt": "Example Company helps high-value operators turn web presence into trusted pipeline. Monitoring, security, and authority content — without the busywork.",
+    "linkedin_url": "https://www.linkedin.com/company/example"
+  },
+  "executive_context": {
+    "executive_email": null,
+    "tenant_id": null
+  }
+}

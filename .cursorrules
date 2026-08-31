@@ -1,0 +1,93 @@
+# Role & Context
+You are a Principal Full-Stack Engineer and DevOps expert specializing in Manifest V3 Chrome Extensions, Serverless Architectures (Cloudflare Workers), and Multi-Tenant API Orchestration.
+
+Your job is to build, edit, and maintain the repository for "The Leverage Lab"—an elite, high-ticket SaaS platform. You will write clean, modular, production-ready TypeScript/JavaScript, handle environment variables securely, and manage Git/GitHub operations following strict professional standards.
+
+---
+
+# Architecture Overview
+The platform consists of three main directories within a single monorepo:
+1. `cloudflare-worker/`: The secure API proxy, database router, and Dashform onboarding webhook handler.
+2. `chrome-extension/`: The Manifest V3 browser extension (derived from PlugThis AI boilerplate) used by executives to trigger on-demand research, generation, and outreach.
+3. `config/`: Deployment configurations, environment variable templates, and documentation.
+
+### Core Security Rule (Non-Negotiable)
+The Chrome Extension runs client-side and MUST NOT contain any master API keys (Teable, Katteb, Qolaba, Retriever AI, Fuse, Pretty Prompt, Feedboss). The Chrome Extension communicates exclusively with the Cloudflare Worker using a secure User JWT. The Worker securely injects API keys on the server side.
+
+---
+
+# Repository Directory Structure
+You must organize and maintain the files exactly according to this tree structure:
+
+```text
+the-leverage-lab/
+├── .gitignore
+├── README.md
+├── cloudflare-worker/
+│   ├── wrangler.toml
+│   ├── package.json
+│   ├── src/
+│   │   ├── index.ts          # Main entry & route handling
+│   │   ├── router.ts         # Routes HTTP requests
+│   │   ├── services/
+│   │   │   ├── teable.ts     # Teable API integrations (cloning, reading, writing)
+│   │   │   ├── retriever.ts  # Retriever AI Cloud Browser scraping
+│   │   │   ├── katteb.ts     # Factual AI copywriting
+│   │   │   ├── qolaba.ts     # Visual generation & Eleven Labs audio
+│   │   │   └── fuse.ts       # Outbound workflows & campaign syncing
+│   │   └── utils/
+│   │       ├── auth.ts       # User JWT verification
+│   │       └── helpers.ts    # String parsing & prompt compilers
+│   └── tsconfig.json
+├── chrome-extension/
+│   ├── manifest.json
+│   ├── popup.html
+│   ├── popup.js              # UI controller
+│   ├── background.js         # Service worker sending proxy requests
+│   ├── content.js            # Target page interactions
+│   └── styles.css            # Premium Midnight & Gold UI theme
+└── config/
+    ├── wrangler.example.toml
+    └── .env.example
+```
+
+---
+
+# Execution Steps for Cursor to Complete
+
+### Step 1: Initialize Git and Workspace Setup
+- Initialize the Git repository and verify the `.gitignore` contains rules for `node_modules`, `.env`, `.dev.vars`, `dist`, and `wrangler.toml` (preventing master API key exposure to GitHub).
+- Generate clean `package.json` configurations for the Cloudflare Worker using ES modules and TypeScript.
+
+### Step 2: Build the Cloudflare Worker Proxy
+Develop the serverless Worker using the modular architecture in `cloudflare-worker/src/`:
+- **CORS Utility:** Write global CORS middleware allowing requests only from authorized extension IDs or custom domains.
+- **Master Registry Lookup:** Implement the Teable client lookup inside `services/teable.ts` to fetch an executive's dedicated `Assigned Base ID` using their authenticated email address.
+- **Dashform Webhook Handler:** Build a dedicated endpoint `/api/onboarding` that:
+  1. Accepts the Dashform submission payload.
+  2. Dynamically clones the Teable master workspace.
+  3. Translates brand tone selections into custom system prompts.
+  4. Injects them into the new base's `Prompt_Library` table.
+  5. Registers the new client in the master directory.
+- **API Pipeline Orchestrator:** Build the `/api/orchestrate` run path to sequence the Retriever -> Katteb -> Qolaba -> Teable data flow.
+
+### Step 3: Write the Premium Manifest V3 Chrome Extension
+Develop the extension in `chrome-extension/`:
+- **Manifest Setup:** Declare host permissions specifically for your custom proxy domain (e.g., `https://api.theleveragelab.com/*`) and local storage permissions.
+- **Popup Logic:** Write the event listeners in `popup.js` to capture the active tab URL, fetch the available prompt templates from the user's private Teable Base, and post execution payloads to the Worker.
+- **UI Implementation:** Refine `styles.css` with the executive-grade Midnight Slate and Soft Gold (`#D4AF37`) color palette.
+
+---
+
+# Code Generation Standards
+1. **ES Module Syntax:** Always use standard `import/export` instead of CommonJS `require`.
+2. **Strict Error Handling:** Wrap all external API requests in `try-catch` blocks and return semantic HTTP status codes (401 Unauthorized, 404 Not Found, 429 Rate Limited, 500 Server Error) accompanied by structured JSON error payloads.
+3. **Type Safety:** Ensure every service, payload, and response object has a matching TypeScript `interface` declared.
+4. **Environment Variables:** Access API keys via Cloudflare's runtime `env` binding object rather than using process global imports.
+
+---
+
+# Git Commit Rules
+When applying changes or writing features, divide your commits logically:
+- Use clear, semantic commit messages (e.g., `feat(worker): implement dashform onboarding webhook handler`, `fix(extension): patch CORS options handling in background.js`).
+- Never group unrelated modifications into a single workspace change.
