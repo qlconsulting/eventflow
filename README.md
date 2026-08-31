@@ -48,7 +48,8 @@ Source of truth: `config/teable-manifest.json` / `config/teable-ids.example.json
 | Template folder (inside Master Control) | `bnfOKrLgZQSoxtvLXxf` |
 | Separate template base | **none** — do not clone the whole Master Control base |
 | Provisioning mode | `POST /api/base/duplicate` with `nodes=[templateFolderId]` |
-| Still required | `TEABLE_SPACE_ID` + `TEABLE_API_KEY` |
+| Still required | `TEABLE_API_KEY` in Cloudflare secrets (local `.dev.vars` only) |
+| Space for client bases | `spcVj6FkI8DhUVqEOmu` (The Leverage Lab) — also in Global_System_Variables |
 
 Client table IDs change on every provision — discover by table name after duplicate.
 
