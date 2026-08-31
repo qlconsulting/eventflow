@@ -44,3 +44,5 @@ coverage/
 *.crx
 *.pem
 chrome-extension.zip
+apps/plugthis-extension/dist/
+apps/plugthis-extension/node_modules/
