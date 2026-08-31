@@ -36,6 +36,14 @@
     "MAINTENANCE_MODE": "false",
     "WELCOME_EMAIL_FROM": "TBD"
   },
+  "dashformMcp": {
+    "endpoint": "https://getaiform.com/api/mcp",
+    "transport": "streamable-http",
+    "auth": "OAuth 2.1 (authorization_code) — connect in Cursor Settings → MCP, then authenticate",
+    "cursorMcpJson": ".cursor/mcp.json",
+    "deeplink": "cursor://anysphere.cursor-deeplink/mcp/install?name=dashform&config=eyJ1cmwiOiJodHRwczovL2dldGFpZm9ybS5jb20vYXBpL21jcCJ9",
+    "note": "Do not deploy the intake webhook until Teable IDs are filled and Worker /api/onboarding is tested. After OAuth, use MCP to create/list the Leverage Lab intake form and map field keys to DashformAnswers."
+  },
   "dashformSampleMapping": {
     "form_id": "frm_leverage_lab_intake",
     "answers.exec_email": "Executive_Directory.Executive Email + Client_Profile.Executive Email",
