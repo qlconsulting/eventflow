@@ -1,6 +1,7 @@
 /**
  * Shared TypeScript interfaces for The Leverage Lab Worker.
- * Field names mirror the Teable Master Control + Executive Workspace schemas.
+ * Field names mirror Teable Master Control + Executive Workspace schemas
+ * (see config/teable-manifest.json).
  */
 
 /** Brand tones seeded in Tone_Persona_Matrix / Client_Profile.Brand Tone */
@@ -37,7 +38,7 @@ export type WebManagementScopeItem =
 
 /**
  * Runtime bindings. Secret keys via `wrangler secret`; base/table IDs via [vars]
- * after Teable returns the implementation ID dump.
+ * from config/teable-manifest.json.
  */
 export interface Env {
   ENVIRONMENT: string;
@@ -46,22 +47,26 @@ export interface Env {
   LAB_DASHBOARD_URL: string;
   DEFAULT_TIMEZONE: string;
 
-  /** Master Control Base */
-  TEABLE_MASTER_BASE_ID: string;
-  /** [TEMPLATE] The Leverage Lab - Executive Workspace — duplicated per client */
-  TEABLE_TEMPLATE_BASE_ID: string;
+  DASHFORM_FORM_ID: string;
+  DASHFORM_FORM_UUID: string;
+  DASHFORM_ORGANIZATION_ID: string;
 
-  /** Master Control table IDs */
+  /** Defaults to https://app.teable.ai/api */
+  TEABLE_API_BASE_URL: string;
+  TEABLE_MASTER_BASE_ID: string;
+  /** Folder node inside Master Control containing client template tables */
+  TEABLE_TEMPLATE_FOLDER_ID: string;
+  /** Space that receives per-client duplicated bases */
+  TEABLE_SPACE_ID: string;
+
   TEABLE_EXECUTIVE_DIRECTORY_TABLE_ID: string;
   TEABLE_PROVISIONING_LOG_TABLE_ID: string;
   TEABLE_MASTER_PROMPT_TEMPLATES_TABLE_ID: string;
   TEABLE_TONE_PERSONA_MATRIX_TABLE_ID: string;
   TEABLE_GLOBAL_SYSTEM_VARIABLES_TABLE_ID: string;
+  TEABLE_API_CREDIT_LEDGER_TABLE_ID: string;
 
-  /**
-   * Template-base table IDs (stable across clones if Teable preserves IDs;
-   * otherwise resolve by name after clone).
-   */
+  /** Source template table IDs (Master Control folder) — seed/reference only */
   TEABLE_TMPL_CLIENT_PROFILE_TABLE_ID: string;
   TEABLE_TMPL_PROMPT_LIBRARY_TABLE_ID: string;
   TEABLE_TMPL_INBOX_LEADS_TABLE_ID: string;
@@ -80,6 +85,7 @@ export interface Env {
   FUSE_API_KEY: string;
   JWT_SECRET: string;
   DASHFORM_WEBHOOK_SECRET: string;
+  DASHFORM_API_KEY?: string;
 }
 
 export interface ApiErrorBody {
@@ -95,10 +101,6 @@ export interface JwtClaims {
   iat?: number;
 }
 
-/**
- * Expected Dashform intake answers (mapping-only until webhook is enabled).
- * Matches the sample payload in the Teable prep prompt.
- */
 export interface DashformAnswers {
   exec_name: string;
   exec_email: string;
@@ -123,11 +125,9 @@ export interface DashformWebhookPayload {
   submission_id: string;
   submitted_at: string;
   answers: DashformAnswers;
-  /** Optional shared secret if Dashform cannot use a header */
   webhookSecret?: string;
 }
 
-/** Normalized internal intake used by provisioning steps */
 export interface OnboardingIntake {
   submissionId: string;
   formId: string;
@@ -178,6 +178,9 @@ export interface ClientRegistryRecord {
   workspaceStatus?: WorkspaceStatus;
   recordId?: string;
 }
+
+/** Map of stable table name → table ID inside a client workspace base */
+export type ClientTableMap = Record<string, string>;
 
 export type ProvisioningStep =
   | 'Intake Received'

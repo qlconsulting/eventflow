@@ -1,32 +1,43 @@
 {
-  "_comment": "Fill after Teable returns the implementation ID dump. Copy values into cloudflare-worker/.dev.vars and wrangler.toml [vars]. Never put API keys here.",
+  "_comment": "Filled from config/teable-manifest.json (2026-08-31). Template lives as a FOLDER inside Master Control — never clone the whole base. Use POST /base/duplicate with nodes=[templateFolderId].",
+  "generatedAt": "2026-08-31T23:04:18-07:00",
   "masterControlBase": {
-    "baseId": "PENDING_TEABLE",
+    "baseId": "bsepxFqD62xkJPeEU8O",
+    "templateFolderId": "bnfOKrLgZQSoxtvLXxf",
     "tables": {
-      "Executive_Directory": "PENDING_TEABLE",
-      "Provisioning_Log": "PENDING_TEABLE",
-      "Master_Prompt_Templates": "PENDING_TEABLE",
-      "Tone_Persona_Matrix": "PENDING_TEABLE",
-      "Global_System_Variables": "PENDING_TEABLE"
+      "Executive_Directory": "tblKx1CqkYTqfwaYC3M",
+      "API_Credit_Ledger": "tblmJGO739oqH1M8QaJ",
+      "Global_System_Variables": "tblFjTHFUnWzQ7dGApI",
+      "Provisioning_Log": "tbldvmRTNyzYa4dlMXR",
+      "Master_Prompt_Templates": "tblZbo1aLF9OfMRDLYu",
+      "Tone_Persona_Matrix": "tbl0z6f3JJyYa8kxUfh"
     }
   },
   "templateExecutiveWorkspace": {
-    "baseId": "PENDING_TEABLE",
-    "baseName": "[TEMPLATE] The Leverage Lab - Executive Workspace",
+    "baseId": null,
+    "baseName": "[TEMPLATE folder inside Master Control]",
+    "folderId": "bnfOKrLgZQSoxtvLXxf",
+    "note": "Tables below are source IDs inside Master Control. After folder-scoped duplicate, discover NEW table IDs by name in the client base.",
     "tables": {
-      "Client_Profile": "PENDING_TEABLE",
-      "Web_Properties": "PENDING_TEABLE",
-      "Prompt_Library": "PENDING_TEABLE",
-      "Inbox_Leads": "PENDING_TEABLE",
-      "Research_Runs": "PENDING_TEABLE",
-      "Thought_Leadership": "PENDING_TEABLE",
-      "Outreach_Queue": "PENDING_TEABLE",
-      "Asset_Library": "PENDING_TEABLE",
-      "Automation_Log": "PENDING_TEABLE"
+      "Client_Profile": "tblh8hHh7tfH8Vk02qT",
+      "Web_Properties": "tblRcDuQSxO3l24pMqy",
+      "Prompt_Library": "tblP5rtg5BLvC4Mg4Wq",
+      "Inbox_Leads": "tbl7IqWrTtFVeUV4sDJ",
+      "Research_Runs": "tblU48f7dcGMDUaIf0d",
+      "Thought_Leadership": "tblwCPo3spGz0uktggu",
+      "Outreach_Queue": "tbl62wCdnX9iCA42RCs",
+      "Asset_Library": "tblAbsreCM1l8MDYuCU",
+      "Automation_Log": "tblh4J2Tv0IvE5HeGx0"
     }
   },
+  "resourceUrlPatterns": {
+    "base": "https://app.teable.ai/base/{baseId}",
+    "table": "https://app.teable.ai/base/{baseId}/table/{tableId}",
+    "view": "https://app.teable.ai/base/{baseId}/table/{tableId}/{viewId}",
+    "record": "https://app.teable.ai/base/{baseId}/table/{tableId}/{viewId}?recordId={recordId}"
+  },
   "globalSystemVariables": {
-    "TEMPLATE_EXECUTIVE_WORKSPACE_BASE_ID": "PENDING_TEABLE",
+    "TEMPLATE_EXECUTIVE_WORKSPACE_BASE_ID": "",
     "LAB_DASHBOARD_URL": "https://lab.theleveragelab.com",
     "WORKER_API_BASE_URL": "https://api.theleveragelab.com",
     "CHROME_EXTENSION_INSTALL_URL": "TBD",
@@ -41,7 +52,7 @@
   "dashformMcp": {
     "endpoint": "https://getaiform.com/api/mcp",
     "transport": "streamable-http",
-    "auth": "OAuth 2.1 for MCP tools; REST API uses X-API-Key (store in .dev.vars as DASHFORM_API_KEY — never commit)",
+    "auth": "OAuth 2.1 for MCP tools; REST API uses X-API-Key (DASHFORM_API_KEY in .dev.vars — never commit)",
     "cursorMcpJson": ".cursor/mcp.json",
     "intakeFormDefinition": "config/dashform-leverage-lab-intake.json",
     "intakeForm": {
@@ -49,9 +60,9 @@
       "id": "5d3e962a-bc3a-41c3-b88b-afbfb45aab78",
       "publicId": "nr0HMXaCSM",
       "shareUrlHint": "https://getaiform.com/f/nr0HMXaCSM",
-      "status": "shell_created — attach questions via MCP OAuth create_form/update or Dashform UI"
+      "status": "shell_created — attach questions via MCP OAuth or Dashform UI"
     },
-    "note": "Do not deploy the intake webhook until Teable IDs are filled and Worker /api/onboarding is tested."
+    "note": "Do not deploy intake webhook until form questions are complete and Worker onboarding is tested against Teable."
   },
   "dashformSampleMapping": {
     "form_id": "nr0HMXaCSM",
@@ -65,5 +76,24 @@
     "answers.web_management_client": "Client_Profile.Web Management Client (Yes/No → boolean)",
     "answers.web_management_scope": "Client_Profile.Web Management Scope",
     "submission_id": "Executive_Directory.Dashform Submission ID"
+  },
+  "deviations": [
+    "Client template is a folder inside Master Control Base, not a separate base.",
+    "TEMPLATE_EXECUTIVE_WORKSPACE_BASE_ID is blank — cloning the whole Master Control base would expose private tables.",
+    "Email and URL fields are singleLineText with showAs=email/url.",
+    "Teable creates reciprocal backlink fields for two-way links.",
+    "No webhook or external workflow was deployed by Teable prep."
+  ],
+  "apiConstraints": [
+    "Provision via POST /api/base/duplicate with fromBaseId=master, nodes=[templateFolderId], spaceId=TEABLE_SPACE_ID, withRecords=true.",
+    "Do not clone the entire Master Control base.",
+    "After duplicate, discover client table IDs by stable table names; do not reuse template table IDs from this manifest.",
+    "Write link fields with record IDs; use typecast for selects/dates/links; ISO 8601 timestamps (display TZ America/Los_Angeles).",
+    "Upload attachments first, then write returned tokens to attachment fields.",
+    "Keep API keys in Cloudflare secrets — never Global_System_Variables."
+  ],
+  "pending": {
+    "TEABLE_SPACE_ID": "REQUIRED — space that receives per-client bases",
+    "TEABLE_API_KEY": "Cloudflare secret / .dev.vars"
   }
 }

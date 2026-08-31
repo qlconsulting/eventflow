@@ -19,10 +19,13 @@ export async function handleRequest(request: Request, env: Env): Promise<Respons
       env: env.ENVIRONMENT,
       teableConfigured: Boolean(
         env.TEABLE_MASTER_BASE_ID &&
-          env.TEABLE_MASTER_BASE_ID !== 'PENDING_TEABLE' &&
-          env.TEABLE_TEMPLATE_BASE_ID &&
-          env.TEABLE_TEMPLATE_BASE_ID !== 'PENDING_TEABLE',
+          env.TEABLE_TEMPLATE_FOLDER_ID &&
+          env.TEABLE_SPACE_ID &&
+          !env.TEABLE_SPACE_ID.startsWith('PENDING_'),
       ),
+      teableMasterBaseId: env.TEABLE_MASTER_BASE_ID || null,
+      teableTemplateFolderId: env.TEABLE_TEMPLATE_FOLDER_ID || null,
+      dashformFormId: env.DASHFORM_FORM_ID || null,
     });
   }
 

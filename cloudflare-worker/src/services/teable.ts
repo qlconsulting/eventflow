@@ -1,6 +1,10 @@
 /**
- * Teable API integrations — Executive_Directory, template clone, Prompt_Library,
- * Provisioning_Log, and Master_Prompt_Templates / Tone_Persona_Matrix reads.
+ * Teable integrations — Executive_Directory, folder-scoped template provision,
+ * Prompt_Library, Provisioning_Log, Tone_Persona_Matrix.
+ *
+ * CRITICAL: Template tables live in a FOLDER inside Master Control.
+ * Never duplicate the whole Master Control base. Use:
+ *   POST /base/duplicate { fromBaseId, spaceId, nodes: [templateFolderId], withRecords }
  */
 
 import type {
@@ -14,72 +18,27 @@ import type {
 import { verifyDashformSecret } from '../utils/auth';
 import { parseDashformPayload } from '../utils/dashform';
 import { compileBrandTonePrompt, jsonError, jsonOk } from '../utils/helpers';
+import {
+  createRecordsByTableId,
+  createRecordsInBaseTable,
+  discoverTablesByName,
+  fieldString,
+  statusFromError,
+  teableFetch,
+  type TeableRecord,
+} from '../utils/teable-client';
 
-const TEABLE_API_BASE = 'https://app.teable.io/api';
-
-interface TeableRequestOptions {
-  method?: string;
-  body?: unknown;
-}
-
-interface TeableRecord {
-  id?: string;
-  fields?: Record<string, unknown>;
-}
-
-async function teableFetch(
-  env: Env,
-  path: string,
-  options: TeableRequestOptions = {},
-): Promise<Response> {
-  return fetch(`${TEABLE_API_BASE}${path}`, {
-    method: options.method ?? 'GET',
-    headers: {
-      Authorization: `Bearer ${env.TEABLE_API_KEY}`,
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
-    body: options.body !== undefined ? JSON.stringify(options.body) : undefined,
-  });
-}
-
-function fieldString(fields: Record<string, unknown> | undefined, ...keys: string[]): string {
-  if (!fields) return '';
-  for (const key of keys) {
-    const value = fields[key];
-    if (value !== undefined && value !== null && String(value).trim()) {
-      return String(value).trim();
-    }
-  }
-  return '';
-}
-
-function statusFromError(error: unknown): number {
-  if (error && typeof error === 'object' && 'status' in error) {
-    return Number((error as { status: number }).status);
-  }
-  return 500;
-}
-
-async function createRecords(
-  env: Env,
-  tableId: string,
-  records: Array<{ fields: Record<string, unknown> }>,
-): Promise<TeableRecord[]> {
-  const res = await teableFetch(env, `/table/${tableId}/record`, {
-    method: 'POST',
-    body: { records },
-  });
-  if (res.status === 429) {
-    throw Object.assign(new Error('Teable rate limited'), { status: 429 });
-  }
-  if (!res.ok) {
-    const text = await res.text();
-    throw Object.assign(new Error(`Teable create failed: ${text}`), { status: res.status });
-  }
-  const data = (await res.json()) as { records?: TeableRecord[] };
-  return data.records ?? [];
-}
+const TEMPLATE_TABLE_NAMES = [
+  'Client_Profile',
+  'Web_Properties',
+  'Prompt_Library',
+  'Inbox_Leads',
+  'Research_Runs',
+  'Thought_Leadership',
+  'Outreach_Queue',
+  'Asset_Library',
+  'Automation_Log',
+] as const;
 
 /**
  * Look up an executive in Executive_Directory by Executive Email.
@@ -90,10 +49,11 @@ export async function lookupAssignedBaseId(
 ): Promise<ClientRegistryRecord | null> {
   const tableId = env.TEABLE_EXECUTIVE_DIRECTORY_TABLE_ID;
   const filter = encodeURIComponent(`{Executive Email}="${email.replace(/"/g, '\\"')}"`);
-  const path = `/table/${tableId}/record?filter=${filter}&take=1`;
 
   try {
-    const res = await teableFetch(env, path);
+    const res = await teableFetch(env, `/table/${tableId}/record`, {
+      query: { filter, take: '1', fieldKeyType: 'name' },
+    });
     if (res.status === 429) {
       throw Object.assign(new Error('Teable rate limited'), { status: 429 });
     }
@@ -112,7 +72,6 @@ export async function lookupAssignedBaseId(
       'Assigned Base ID',
       'Assigned Workspace Base ID',
       'Workspace Base ID',
-      'assignedBaseId',
     );
     if (!assignedBaseId) return null;
 
@@ -144,9 +103,7 @@ export async function writeProvisioningLog(
     errorMessage?: string;
   },
 ): Promise<void> {
-  if (!env.TEABLE_PROVISIONING_LOG_TABLE_ID || env.TEABLE_PROVISIONING_LOG_TABLE_ID === 'PENDING_TEABLE') {
-    return;
-  }
+  if (!env.TEABLE_PROVISIONING_LOG_TABLE_ID) return;
 
   const fields: Record<string, unknown> = {
     'Event ID': params.eventId,
@@ -165,59 +122,79 @@ export async function writeProvisioningLog(
     fields['Error Message'] = params.errorMessage;
   }
 
-  await createRecords(env, env.TEABLE_PROVISIONING_LOG_TABLE_ID, [{ fields }]);
+  await createRecordsByTableId(env, env.TEABLE_PROVISIONING_LOG_TABLE_ID, [{ fields }]);
 }
 
 /**
- * Duplicate [TEMPLATE] The Leverage Lab - Executive Workspace for a new client.
+ * Duplicate ONLY the template folder node into a new client base.
+ * Requires TEABLE_SPACE_ID. Never clones full Master Control.
  */
-export async function cloneTemplateWorkspace(
+export async function provisionClientWorkspace(
   companyName: string,
   executiveName: string,
   env: Env,
-): Promise<{ baseId: string }> {
-  const templateBaseId = env.TEABLE_TEMPLATE_BASE_ID;
-  if (!templateBaseId || templateBaseId === 'PENDING_TEABLE') {
-    throw Object.assign(new Error('TEABLE_TEMPLATE_BASE_ID is not configured'), { status: 500 });
+): Promise<{ baseId: string; tableMap: Record<string, string> }> {
+  if (!env.TEABLE_SPACE_ID || env.TEABLE_SPACE_ID.startsWith('PENDING_')) {
+    throw Object.assign(
+      new Error('TEABLE_SPACE_ID is not configured — cannot provision client bases'),
+      { status: 500 },
+    );
   }
-
-  try {
-    const res = await teableFetch(env, `/base/${templateBaseId}/duplicate`, {
-      method: 'POST',
-      body: {
-        name: `The Leverage Lab — ${executiveName} (${companyName})`,
-      },
+  if (!env.TEABLE_TEMPLATE_FOLDER_ID) {
+    throw Object.assign(new Error('TEABLE_TEMPLATE_FOLDER_ID is not configured'), {
+      status: 500,
     });
-
-    if (res.status === 429) {
-      throw Object.assign(new Error('Teable rate limited while cloning'), { status: 429 });
-    }
-    if (!res.ok) {
-      const text = await res.text();
-      throw Object.assign(new Error(`Template clone failed: ${text}`), { status: res.status });
-    }
-
-    const data = (await res.json()) as { id?: string; baseId?: string };
-    const baseId = data.id ?? data.baseId;
-    if (!baseId) {
-      throw new Error('Clone response missing base id');
-    }
-    return { baseId };
-  } catch (error) {
-    if (error && typeof error === 'object' && 'status' in error) throw error;
-    throw Object.assign(new Error('Failed to clone template workspace'), { cause: error });
   }
+  if (!env.TEABLE_MASTER_BASE_ID) {
+    throw Object.assign(new Error('TEABLE_MASTER_BASE_ID is not configured'), { status: 500 });
+  }
+
+  const res = await teableFetch(env, '/base/duplicate', {
+    method: 'POST',
+    body: {
+      fromBaseId: env.TEABLE_MASTER_BASE_ID,
+      spaceId: env.TEABLE_SPACE_ID,
+      name: `The Leverage Lab — ${executiveName} (${companyName})`,
+      withRecords: true,
+      nodes: [env.TEABLE_TEMPLATE_FOLDER_ID],
+      timeZone: env.DEFAULT_TIMEZONE || 'America/Los_Angeles',
+    },
+  });
+
+  if (res.status === 429) {
+    throw Object.assign(new Error('Teable rate limited while provisioning'), { status: 429 });
+  }
+  if (!res.ok) {
+    const text = await res.text();
+    throw Object.assign(new Error(`Folder-scoped base duplicate failed: ${text}`), {
+      status: res.status,
+    });
+  }
+
+  const data = (await res.json()) as { id?: string; baseId?: string; name?: string };
+  const baseId = data.id ?? data.baseId;
+  if (!baseId) {
+    throw new Error('Duplicate response missing base id');
+  }
+
+  const tableMap = await discoverTablesByName(env, baseId);
+  const missing = TEMPLATE_TABLE_NAMES.filter((n) => !tableMap[n]);
+  if (missing.length > 0) {
+    // Soft warning — continue; some Teable responses nest folders differently
+    console.warn(
+      `Provisioned base ${baseId} missing expected tables: ${missing.join(', ')}. Found: ${Object.keys(tableMap).join(', ')}`,
+    );
+  }
+
+  return { baseId, tableMap };
 }
 
 export async function createClientProfile(
   baseId: string,
   intake: OnboardingIntake,
   env: Env,
+  tableMap?: Record<string, string>,
 ): Promise<string | undefined> {
-  // Address tables via cloned base + table name. Template table IDs in env
-  // refer to the source template, not the per-client duplicate.
-  const path = `/base/${baseId}/table/Client_Profile/record`;
-
   const fields: Record<string, unknown> = {
     'Profile Name': `${intake.executiveName} — ${intake.companyName}`,
     'Executive Name': intake.executiveName,
@@ -238,27 +215,32 @@ export async function createClientProfile(
   if (intake.brandVoiceNotes) fields['Brand Voice Notes'] = intake.brandVoiceNotes;
   fields['Intake Summary'] = JSON.stringify(intake);
 
-  const res = await teableFetch(env, path, { method: 'POST', body: { records: [{ fields }] } });
-  if (!res.ok) {
-    const text = await res.text();
-    throw Object.assign(new Error(`Client_Profile create failed: ${text}`), { status: res.status });
-  }
-  const data = (await res.json()) as { records?: TeableRecord[] };
-  return data.records?.[0]?.id;
+  const created = await createRecordsInBaseTable(
+    env,
+    baseId,
+    'Client_Profile',
+    [{ fields }],
+    tableMap,
+  );
+  return created[0]?.id;
 }
 
-/**
- * Fetch tone rules from Tone_Persona_Matrix for the selected brand tone.
- */
 export async function fetchTonePersona(
   brandTone: string,
   env: Env,
-): Promise<{ voiceRules: string; openingHookStyle?: string; writingRules?: string; avoidList?: string } | null> {
+): Promise<{
+  voiceRules: string;
+  openingHookStyle?: string;
+  writingRules?: string;
+  avoidList?: string;
+} | null> {
   const tableId = env.TEABLE_TONE_PERSONA_MATRIX_TABLE_ID;
-  if (!tableId || tableId === 'PENDING_TEABLE') return null;
+  if (!tableId) return null;
 
   const filter = encodeURIComponent(`{Tone Name}="${brandTone.replace(/"/g, '\\"')}"`);
-  const res = await teableFetch(env, `/table/${tableId}/record?filter=${filter}&take=1`);
+  const res = await teableFetch(env, `/table/${tableId}/record`, {
+    query: { filter, take: '1', fieldKeyType: 'name' },
+  });
   if (!res.ok) return null;
 
   const data = (await res.json()) as { records?: TeableRecord[] };
@@ -274,32 +256,18 @@ export async function fetchTonePersona(
 }
 
 /**
- * Seed client Prompt_Library from Master_Prompt_Templates (Active=true),
- * compiling tone into System Instructions where useful.
+ * Apply brand-tone overlay onto Prompt_Library rows already copied withRecords.
+ * If library is empty, seed from Master_Prompt_Templates.
  */
-export async function seedPromptLibraryFromMaster(
+export async function ensurePromptLibraryTone(
   baseId: string,
   intake: OnboardingIntake,
   env: Env,
+  tableMap?: Record<string, string>,
 ): Promise<number> {
-  const masterTableId = env.TEABLE_MASTER_PROMPT_TEMPLATES_TABLE_ID;
-  if (!masterTableId || masterTableId === 'PENDING_TEABLE') {
-    // Fallback: inject a single tone-compiled system prompt row
-    const systemPrompt = compileBrandTonePrompt(intake.brandTone, intake.brandVoiceNotes);
-    await injectFallbackPrompt(baseId, env, systemPrompt);
-    return 1;
-  }
+  const map = tableMap ?? (await discoverTablesByName(env, baseId));
+  const promptTableId = map.Prompt_Library;
 
-  const filter = encodeURIComponent('{Active}=true');
-  const res = await teableFetch(env, `/table/${masterTableId}/record?filter=${filter}&take=100`);
-  if (!res.ok) {
-    const text = await res.text();
-    throw Object.assign(new Error(`Master_Prompt_Templates read failed: ${text}`), {
-      status: res.status,
-    });
-  }
-
-  const data = (await res.json()) as { records?: TeableRecord[] };
   const tone = await fetchTonePersona(intake.brandTone, env);
   const toneBlock = tone
     ? [
@@ -313,7 +281,60 @@ export async function seedPromptLibraryFromMaster(
         .join('\n')
     : compileBrandTonePrompt(intake.brandTone, intake.brandVoiceNotes);
 
-  const records = (data.records ?? []).map((record) => {
+  if (promptTableId) {
+    const list = await teableFetch(env, `/table/${promptTableId}/record`, {
+      query: { take: '100', fieldKeyType: 'name' },
+    });
+    if (list.ok) {
+      const data = (await list.json()) as { records?: TeableRecord[] };
+      const records = data.records ?? [];
+      if (records.length > 0) {
+        // Append tone block via patch when records exist from withRecords clone
+        let updated = 0;
+        for (const record of records) {
+          if (!record.id) continue;
+          const existing = fieldString(record.fields, 'System Instructions');
+          if (existing.includes(`Brand Tone (${intake.brandTone})`)) {
+            updated += 1;
+            continue;
+          }
+          const systemInstructions = [
+            existing,
+            `\n--- Brand Tone (${intake.brandTone}) ---\n${toneBlock}`,
+          ]
+            .filter(Boolean)
+            .join('\n');
+          const patch = await teableFetch(env, `/table/${promptTableId}/record/${record.id}`, {
+            method: 'PATCH',
+            query: { fieldKeyType: 'name' },
+            body: {
+              record: { fields: { 'System Instructions': systemInstructions } },
+              fieldKeyType: 'name',
+              typecast: true,
+            },
+          });
+          if (patch.ok) updated += 1;
+        }
+        return updated;
+      }
+    }
+  }
+
+  // Seed from Master_Prompt_Templates when clone brought no prompt rows
+  const masterTableId = env.TEABLE_MASTER_PROMPT_TEMPLATES_TABLE_ID;
+  const filter = encodeURIComponent('{Active}=true');
+  const res = await teableFetch(env, `/table/${masterTableId}/record`, {
+    query: { filter, take: '100', fieldKeyType: 'name' },
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw Object.assign(new Error(`Master_Prompt_Templates read failed: ${text}`), {
+      status: res.status,
+    });
+  }
+
+  const data = (await res.json()) as { records?: TeableRecord[] };
+  const seedRecords = (data.records ?? []).map((record) => {
     const f = record.fields ?? {};
     const systemInstructions = [
       fieldString(f, 'System Instruction Template'),
@@ -334,37 +355,17 @@ export async function seedPromptLibraryFromMaster(
     };
   });
 
-  if (records.length === 0) {
-    await injectFallbackPrompt(
-      baseId,
+  if (seedRecords.length === 0) {
+    await createRecordsInBaseTable(
       env,
-      compileBrandTonePrompt(intake.brandTone, intake.brandVoiceNotes),
-    );
-    return 1;
-  }
-
-  const promptPath = `/base/${baseId}/table/Prompt_Library/record`;
-
-  const write = await teableFetch(env, promptPath, { method: 'POST', body: { records } });
-  if (!write.ok) {
-    const text = await write.text();
-    throw Object.assign(new Error(`Prompt_Library seed failed: ${text}`), { status: write.status });
-  }
-  return records.length;
-}
-
-async function injectFallbackPrompt(baseId: string, env: Env, systemPrompt: string): Promise<void> {
-  const path = `/base/${baseId}/table/Prompt_Library/record`;
-
-  const res = await teableFetch(env, path, {
-    method: 'POST',
-    body: {
-      records: [
+      baseId,
+      'Prompt_Library',
+      [
         {
           fields: {
             'Prompt Name': 'Brand System Prompt',
             Category: 'Research Synthesis',
-            'System Instructions': systemPrompt,
+            'System Instructions': toneBlock,
             'Refined Prompt Template': '{{company_context}}',
             'Required Variables': '{{company_context}}',
             Status: 'Active',
@@ -373,19 +374,15 @@ async function injectFallbackPrompt(baseId: string, env: Env, systemPrompt: stri
           },
         },
       ],
-    },
-  });
-  if (!res.ok) {
-    const text = await res.text();
-    throw Object.assign(new Error(`Fallback Prompt_Library inject failed: ${text}`), {
-      status: res.status,
-    });
+      map,
+    );
+    return 1;
   }
+
+  await createRecordsInBaseTable(env, baseId, 'Prompt_Library', seedRecords, map);
+  return seedRecords.length;
 }
 
-/**
- * Upsert / register executive in Executive_Directory after provisioning.
- */
 export async function registerClientInMaster(
   intake: OnboardingIntake,
   assignedBaseId: string,
@@ -402,18 +399,20 @@ export async function registerClientInMaster(
     'Workspace Status': options.workspaceStatus ?? 'Active',
     'Dashform Submission ID': intake.submissionId,
     'Dashboard URL': dashboardUrl,
+    'Web Management Client': intake.webManagementClient,
+    'Onboarding Date': new Date().toISOString(),
   };
   if (intake.companyWebsite) fields['Company Website'] = intake.companyWebsite;
   if (intake.executiveLinkedIn) fields['Executive LinkedIn'] = intake.executiveLinkedIn;
+  if (intake.managedDomain) fields['Domain Mapped'] = intake.managedDomain;
   if (options.errorMessage) fields['Last Provisioning Error'] = options.errorMessage;
 
-  const created = await createRecords(env, env.TEABLE_EXECUTIVE_DIRECTORY_TABLE_ID, [{ fields }]);
+  const created = await createRecordsByTableId(env, env.TEABLE_EXECUTIVE_DIRECTORY_TABLE_ID, [
+    { fields },
+  ]);
   return created[0]?.id;
 }
 
-/**
- * Dashform `/api/onboarding` handler — provisioning pipeline (not live until IDs + webhook exist).
- */
 export async function handleOnboarding(rawBody: unknown, env: Env): Promise<Response> {
   const parsed = parseDashformPayload(rawBody);
   if (!parsed.ok) {
@@ -422,7 +421,6 @@ export async function handleOnboarding(rawBody: unknown, env: Env): Promise<Resp
 
   const { intake, envelope } = parsed;
   if (!verifyDashformSecret(envelope.webhookSecret, env)) {
-    // Also accept secret from Authorization / X-Webhook-Secret in future; body field for now.
     return jsonError(401, 'UNAUTHORIZED', 'Invalid Dashform webhook secret');
   }
 
@@ -447,7 +445,7 @@ export async function handleOnboarding(rawBody: unknown, env: Env): Promise<Resp
       payloadSnapshot: envelope,
     });
 
-    const { baseId } = await cloneTemplateWorkspace(
+    const { baseId, tableMap } = await provisionClientWorkspace(
       intake.companyName,
       intake.executiveName,
       env,
@@ -457,10 +455,10 @@ export async function handleOnboarding(rawBody: unknown, env: Env): Promise<Resp
       source: 'Worker',
       step: 'Template Base Cloned',
       status: 'Success',
-      payloadSnapshot: { baseId },
+      payloadSnapshot: { baseId, tables: tableMap, mode: 'folder-scoped-duplicate' },
     });
 
-    await createClientProfile(baseId, intake, env);
+    await createClientProfile(baseId, intake, env, tableMap);
     await writeProvisioningLog(env, {
       eventId,
       source: 'Worker',
@@ -468,7 +466,7 @@ export async function handleOnboarding(rawBody: unknown, env: Env): Promise<Resp
       status: 'Success',
     });
 
-    const seeded = await seedPromptLibraryFromMaster(baseId, intake, env);
+    const seeded = await ensurePromptLibraryTone(baseId, intake, env, tableMap);
     await writeProvisioningLog(env, {
       eventId,
       source: 'Worker',
@@ -502,7 +500,9 @@ export async function handleOnboarding(rawBody: unknown, env: Env): Promise<Resp
         email: intake.executiveEmail,
         assignedBaseId: baseId,
         dashboardUrl: `${env.LAB_DASHBOARD_URL.replace(/\/+$/, '')}/w/${baseId}`,
+        teableBaseUrl: `https://app.teable.ai/base/${baseId}`,
         templatesSeeded: seeded,
+        tableMap,
       },
       201,
     );
@@ -520,7 +520,7 @@ export async function handleOnboarding(rawBody: unknown, env: Env): Promise<Resp
         payloadSnapshot: intake,
       });
     } catch {
-      // best-effort logging
+      // best-effort
     }
 
     if (status === 429) {
@@ -530,9 +530,6 @@ export async function handleOnboarding(rawBody: unknown, env: Env): Promise<Resp
   }
 }
 
-/**
- * Resolve the authenticated user's private Teable base.
- */
 export async function resolveUserBase(
   claims: JwtClaims,
   env: Env,
@@ -559,9 +556,6 @@ export interface PromptTemplateSummary {
   status?: string;
 }
 
-/**
- * List Active prompt templates from the executive's private Prompt_Library.
- */
 export async function listPromptTemplates(
   claims: JwtClaims,
   env: Env,
@@ -570,9 +564,15 @@ export async function listPromptTemplates(
   if (baseOrError instanceof Response) return baseOrError;
 
   try {
-    const path = `/base/${baseOrError.assignedBaseId}/table/Prompt_Library/record?take=100`;
+    const tableMap = await discoverTablesByName(env, baseOrError.assignedBaseId);
+    const promptTableId = tableMap.Prompt_Library;
+    if (!promptTableId) {
+      return jsonError(404, 'NOT_FOUND', 'Prompt_Library table not found in assigned base');
+    }
 
-    const res = await teableFetch(env, path);
+    const res = await teableFetch(env, `/table/${promptTableId}/record`, {
+      query: { take: '100', fieldKeyType: 'name' },
+    });
     if (res.status === 429) {
       return jsonError(429, 'RATE_LIMITED', 'Upstream Teable rate limit');
     }

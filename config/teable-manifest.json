@@ -1,0 +1,1060 @@
+{
+  "generatedAt": "2026-08-31T23:04:18-07:00",
+  "masterControlBaseId": "bsepxFqD62xkJPeEU8O",
+  "templateExecutiveWorkspaceBaseId": null,
+  "templateFolderId": "bnfOKrLgZQSoxtvLXxf",
+  "tables": [
+    {
+      "group": "master",
+      "name": "Executive_Directory",
+      "id": "tblKx1CqkYTqfwaYC3M",
+      "fields": [
+        {
+          "name": "Executive Name",
+          "id": "fldS6H1usntMCnJx8QE",
+          "type": "singleLineText",
+          "isPrimary": true
+        },
+        {
+          "name": "Executive Email",
+          "id": "fldejsc8TqPBWBrZIPL",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Assigned Base ID",
+          "id": "fldLUZ0TIAoAusSYjmA",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Tenant ID",
+          "id": "fld2IyhOQWHZNycToAd",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Subscription Status",
+          "id": "fld9hR7rfKldgwKuZWf",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Stripe Customer ID",
+          "id": "fldML2uI4AP33zYpv5f",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Web Management Client",
+          "id": "fldSVNn9EmNPcufYmp6",
+          "type": "checkbox",
+          "isPrimary": false
+        },
+        {
+          "name": "Domain Mapped",
+          "id": "fld7w7Gn9yZvvcxtMK8",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Onboarding Date",
+          "id": "fldPkEBTgDNZdse2cW2",
+          "type": "date",
+          "isPrimary": false
+        },
+        {
+          "name": "API_Credit_Ledger",
+          "id": "fldgZzNAjRA24Wkr780",
+          "type": "link",
+          "isPrimary": false
+        },
+        {
+          "name": "Last Provisioning Error",
+          "id": "fld9nai2wikrbn9noPd",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Dashboard URL",
+          "id": "fldxlyc95yhb1OGlV6V",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Executive LinkedIn",
+          "id": "fldgAj5F4xWWP5wvPfH",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Client Package",
+          "id": "fldlwaMHg8ruagpDMag",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Extension License Key Hash",
+          "id": "fld89QNnIuhQSUNmlju",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Company Name",
+          "id": "fldHDeBUKcqkyqveoUY",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Workspace Status",
+          "id": "fldkh4Vm3Ij8RTo6FKW",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Provisioning_Log",
+          "id": "fldNNUPY6FhfYGJPTwP",
+          "type": "link",
+          "isPrimary": false
+        },
+        {
+          "name": "Company Website",
+          "id": "fldfrROFmBBLzHe3yK5",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Dashform Submission ID",
+          "id": "fldTYrs8R1PkWzdYw4x",
+          "type": "singleLineText",
+          "isPrimary": false
+        }
+      ]
+    },
+    {
+      "group": "master",
+      "name": "API_Credit_Ledger",
+      "id": "tblmJGO739oqH1M8QaJ",
+      "fields": [
+        {
+          "name": "Transaction ID",
+          "id": "fldh7IGROCW9PRbVp9i",
+          "type": "singleLineText",
+          "isPrimary": true
+        },
+        {
+          "name": "Executive",
+          "id": "fldRLs5IdrpFnYp9Poz",
+          "type": "link",
+          "isPrimary": false
+        },
+        {
+          "name": "Action Performed",
+          "id": "fldvHw9Gpv5bUq8QOZp",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Credits Consumed",
+          "id": "fldB9dWF7H28fqMxGP9",
+          "type": "number",
+          "isPrimary": false
+        },
+        {
+          "name": "Date and Time",
+          "id": "fldJ18QboT5Z6OV4bja",
+          "type": "date",
+          "isPrimary": false
+        }
+      ]
+    },
+    {
+      "group": "master",
+      "name": "Global_System_Variables",
+      "id": "tblFjTHFUnWzQ7dGApI",
+      "fields": [
+        {
+          "name": "Variable Key",
+          "id": "fld9GkYub8wNiX3k4aG",
+          "type": "singleLineText",
+          "isPrimary": true
+        },
+        {
+          "name": "Variable Value",
+          "id": "fldZ1sIBnCepAWEoyk1",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Description",
+          "id": "fld8Q1xfiWwSA0Te7E6",
+          "type": "longText",
+          "isPrimary": false
+        }
+      ]
+    },
+    {
+      "group": "master",
+      "name": "Provisioning_Log",
+      "id": "tbldvmRTNyzYa4dlMXR",
+      "fields": [
+        {
+          "name": "Event ID",
+          "id": "fldHWiM7iryIeJtOEFw",
+          "type": "singleLineText",
+          "isPrimary": true
+        },
+        {
+          "name": "Executive",
+          "id": "fldFUnHoYBoEpy0lM1w",
+          "type": "link",
+          "isPrimary": false
+        },
+        {
+          "name": "Source",
+          "id": "fldTyIsvlYGTrBC50mK",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Step",
+          "id": "fldcxsxRKj1ejzoUAAE",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Status",
+          "id": "fldlTSVPddXOX1gYfDS",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Payload Snapshot",
+          "id": "fld5gBx0fHLnAkQwdux",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Error Message",
+          "id": "fldeoXPjH4UGV00gtdd",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Timestamp",
+          "id": "fldIMZHMBrT8tGSxhwu",
+          "type": "date",
+          "isPrimary": false
+        }
+      ]
+    },
+    {
+      "group": "master",
+      "name": "Master_Prompt_Templates",
+      "id": "tblZbo1aLF9OfMRDLYu",
+      "fields": [
+        {
+          "name": "Template Name",
+          "id": "fld68LNPKJS9iNRYLAL",
+          "type": "singleLineText",
+          "isPrimary": true
+        },
+        {
+          "name": "Category",
+          "id": "fldwU2Fyawt2BcYDeR8",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "System Instruction Template",
+          "id": "fldml5SFFhDD68wna7E",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Prompt Body Template",
+          "id": "flduCJ3L0wKxlHfHhaI",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Required Variables",
+          "id": "fld9zL9iiBqpNH932Wp",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Template Version",
+          "id": "fldJAL4Dp7zv8XCTfQO",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Active",
+          "id": "fldkfwIMZO2nCJ1pWKB",
+          "type": "checkbox",
+          "isPrimary": false
+        },
+        {
+          "name": "Last Updated",
+          "id": "fldBmMiTnFYYpMAgggA",
+          "type": "date",
+          "isPrimary": false
+        }
+      ]
+    },
+    {
+      "group": "master",
+      "name": "Tone_Persona_Matrix",
+      "id": "tbl0z6f3JJyYa8kxUfh",
+      "fields": [
+        {
+          "name": "Tone Name",
+          "id": "fldUBle5rq0Bz6abCu5",
+          "type": "singleLineText",
+          "isPrimary": true
+        },
+        {
+          "name": "Voice Rules",
+          "id": "fldWCfBUJ6GIF0nBflJ",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Opening Hook Style",
+          "id": "fldyT9L9WOkZSpEP5Ya",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Writing Rules",
+          "id": "fldvCTuRYpJQqVzJumU",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Avoid List",
+          "id": "fldVUpLuH3Ra29cSd8b",
+          "type": "longText",
+          "isPrimary": false
+        }
+      ]
+    },
+    {
+      "group": "template",
+      "name": "Client_Profile",
+      "id": "tblh8hHh7tfH8Vk02qT",
+      "fields": [
+        {
+          "name": "Profile Name",
+          "id": "fldncrHFreWX3plmgCi",
+          "type": "singleLineText",
+          "isPrimary": true
+        },
+        {
+          "name": "Executive Name",
+          "id": "fldzBOToIvKDXt3kk6u",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Executive Email",
+          "id": "fldu8JOkPERtxC82w28",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Company Name",
+          "id": "fldyvYsgMTCglzcWjY0",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Company Website",
+          "id": "fldcJ6EOFi5gBADmc1T",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Executive LinkedIn",
+          "id": "fldP4nvKpFdXh96WtMU",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Target Audience",
+          "id": "fld5eXxseb4ZbkeZe5j",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Core Offer",
+          "id": "fldK64nxiE61Ew8ObPs",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Brand Tone",
+          "id": "fldTX0DwYHc4rV9rRSP",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Primary Pain Point",
+          "id": "fldFpIDOiL7smPXmyqe",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Preferred Channels",
+          "id": "fldethNEczLUbQoKBtG",
+          "type": "multipleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Web Management Client",
+          "id": "fld0mVk18t63d4joUub",
+          "type": "checkbox",
+          "isPrimary": false
+        },
+        {
+          "name": "Managed Domain",
+          "id": "fldy8xDbuIJ6XdHdOe1",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Web Management Scope",
+          "id": "fldUnODNHbNdTIYqoi6",
+          "type": "multipleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Brand Voice Notes",
+          "id": "fldZDOXMTfQuP6QDn1a",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Intake Summary",
+          "id": "fldfJMIfnMwIP7uHeyv",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Created Date",
+          "id": "fldbfH2shcC5KiLwEqs",
+          "type": "date",
+          "isPrimary": false
+        }
+      ]
+    },
+    {
+      "group": "template",
+      "name": "Web_Properties",
+      "id": "tblRcDuQSxO3l24pMqy",
+      "fields": [
+        {
+          "name": "Property Name",
+          "id": "fldLAlWV2lPb9Rkms6p",
+          "type": "singleLineText",
+          "isPrimary": true
+        },
+        {
+          "name": "Domain URL",
+          "id": "fldreJCP8DEeYAhj4VG",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Environment",
+          "id": "fldXtHeLKEpl8BzTeyr",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Hosting Provider",
+          "id": "fldAYpH8XJNmrskdkfO",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "DNS Provider",
+          "id": "fldQxM8JUdMHbtO5jsa",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "SSL Status",
+          "id": "fldiDiFIB9DauUDBbak",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Security Status",
+          "id": "fldZ0WkFAjgl4cutr0t",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Monitoring Status",
+          "id": "fld7PL49cFS93bIZC8V",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Backup Status",
+          "id": "fldtmWmndf3QXd0jVON",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Last Uptime Check",
+          "id": "fld0JKYUlrZecFJ67eu",
+          "type": "date",
+          "isPrimary": false
+        },
+        {
+          "name": "Last Security Check",
+          "id": "fldkdAXklZ6jpiUa6Bm",
+          "type": "date",
+          "isPrimary": false
+        },
+        {
+          "name": "Last Backup Check",
+          "id": "fldTiArFoweUTRBTj6S",
+          "type": "date",
+          "isPrimary": false
+        },
+        {
+          "name": "Notes",
+          "id": "fldGf7vzBfOdM8KSXrD",
+          "type": "longText",
+          "isPrimary": false
+        }
+      ]
+    },
+    {
+      "group": "template",
+      "name": "Prompt_Library",
+      "id": "tblP5rtg5BLvC4Mg4Wq",
+      "fields": [
+        {
+          "name": "Prompt Name",
+          "id": "fldTvRh0G8LslW1jI7a",
+          "type": "singleLineText",
+          "isPrimary": true
+        },
+        {
+          "name": "System Instructions",
+          "id": "fldN3cMmu0r0E3IUDdQ",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Refined Prompt Template",
+          "id": "fldmsX5wn9UW2CbEMpn",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Category",
+          "id": "fld7vY9EbpFjyFU6wUO",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Status",
+          "id": "fldNgipmSrZKVehlHMn",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Thought_Leadership",
+          "id": "fldgVeKH1xIiAfPooup",
+          "type": "link",
+          "isPrimary": false
+        },
+        {
+          "name": "Required Variables",
+          "id": "fld20BAfpAbJTs2dK1B",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Template Version",
+          "id": "fldrVWLfwby4MopK14l",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Last Updated",
+          "id": "fldRt2j5JqwM0DeZiLr",
+          "type": "date",
+          "isPrimary": false
+        }
+      ]
+    },
+    {
+      "group": "template",
+      "name": "Inbox_Leads",
+      "id": "tbl7IqWrTtFVeUV4sDJ",
+      "fields": [
+        {
+          "name": "Lead Name",
+          "id": "fld8ejlwvGG6tKFEcW9",
+          "type": "singleLineText",
+          "isPrimary": true
+        },
+        {
+          "name": "Company Name",
+          "id": "fldVWlyiv59mj0Vys5f",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Website URL",
+          "id": "fldLfWPYF2WidU50z10",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Scraped Raw Context",
+          "id": "fldF7mBnB6IWEVtk5uk",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Buying Intent Signals",
+          "id": "fldqtK9bkIHszJVPyVV",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Priority Score",
+          "id": "fldCh5aG1aNuXrCarVI",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Enrichment Status",
+          "id": "fldbBgimXVYGcceJuxD",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Date Scraped",
+          "id": "fldmfLF5gq8ysRqcNQF",
+          "type": "date",
+          "isPrimary": false
+        },
+        {
+          "name": "Outreach_Queue",
+          "id": "fldBVB1gjN42IdilSWr",
+          "type": "link",
+          "isPrimary": false
+        },
+        {
+          "name": "Thought_Leadership",
+          "id": "fldqNjt58GcdCnnKPCs",
+          "type": "link",
+          "isPrimary": false
+        },
+        {
+          "name": "Automation_Log",
+          "id": "fldwJZBeK9IW1BIyQjh",
+          "type": "link",
+          "isPrimary": false
+        },
+        {
+          "name": "Research_Runs",
+          "id": "fldpVzic0s0HQasFWVr",
+          "type": "link",
+          "isPrimary": false
+        },
+        {
+          "name": "LinkedIn URL",
+          "id": "fldRynYNY2Ydr8JyRZd",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Source",
+          "id": "fldahiy0sMmty60LHr6",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Research Summary",
+          "id": "fldcNclhsTNKJELuWBH",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Key Executive Angles",
+          "id": "fldJAXQY16dnq3fwNgp",
+          "type": "longText",
+          "isPrimary": false
+        }
+      ]
+    },
+    {
+      "group": "template",
+      "name": "Research_Runs",
+      "id": "tblU48f7dcGMDUaIf0d",
+      "fields": [
+        {
+          "name": "Run ID",
+          "id": "fldelVRuz1bRScuULoK",
+          "type": "singleLineText",
+          "isPrimary": true
+        },
+        {
+          "name": "Linked Lead",
+          "id": "fld5gYkyzrxjDrvhN6o",
+          "type": "link",
+          "isPrimary": false
+        },
+        {
+          "name": "Source URL",
+          "id": "fldMwIypcVMV5hSQyYv",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Trigger Source",
+          "id": "flddy4XnyQthomHVU2t",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Retriever Output",
+          "id": "fldmz4VhYHZQ2R626jr",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Research Summary",
+          "id": "fld3hhPAZUtJosZFRPa",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Intent Signals",
+          "id": "fldM9Xc5EAzQIHGMwVW",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Source Links",
+          "id": "fldSR5bCB6vMo4K7t31",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Status",
+          "id": "fldeOrGtuH9BkukEfWb",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Credits Used",
+          "id": "fldprlkPycqp3LgHtm8",
+          "type": "number",
+          "isPrimary": false
+        },
+        {
+          "name": "Error Message",
+          "id": "fldlkpI38uGCposdS62",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Timestamp",
+          "id": "fldI1eps5vceCvNJTwY",
+          "type": "date",
+          "isPrimary": false
+        }
+      ]
+    },
+    {
+      "group": "template",
+      "name": "Thought_Leadership",
+      "id": "tblwCPo3spGz0uktggu",
+      "fields": [
+        {
+          "name": "Content Title",
+          "id": "fldSYrVVtzIUrSC1S9R",
+          "type": "singleLineText",
+          "isPrimary": true
+        },
+        {
+          "name": "Linked Lead",
+          "id": "fldD5HijcKzky2YArch",
+          "type": "link",
+          "isPrimary": false
+        },
+        {
+          "name": "Used Template",
+          "id": "fldobNIbFIAWoiWXtai",
+          "type": "link",
+          "isPrimary": false
+        },
+        {
+          "name": "Generated Copy",
+          "id": "fld8sdPwJaFwN5fyClU",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Creative Visual",
+          "id": "fldW9QuaBjNXvac0ABt",
+          "type": "attachment",
+          "isPrimary": false
+        },
+        {
+          "name": "Voiceover Audio",
+          "id": "fldZBlSYMtaul5WzARG",
+          "type": "attachment",
+          "isPrimary": false
+        },
+        {
+          "name": "Content Status",
+          "id": "fldIvu9tXOH51g7m6SA",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Scheduled Date",
+          "id": "fldilHNp5OOOQ1yzq7Y",
+          "type": "date",
+          "isPrimary": false
+        },
+        {
+          "name": "Automation_Log",
+          "id": "fld9e0XWJ7rytyGsTCT",
+          "type": "link",
+          "isPrimary": false
+        },
+        {
+          "name": "Content Type",
+          "id": "fldcYQvLcNoG0kqFxDk",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Asset_Library",
+          "id": "fldJN7W3yBCCwPgsKdx",
+          "type": "link",
+          "isPrimary": false
+        }
+      ]
+    },
+    {
+      "group": "template",
+      "name": "Outreach_Queue",
+      "id": "tbl62wCdnX9iCA42RCs",
+      "fields": [
+        {
+          "name": "Recipient Name",
+          "id": "fldIPlZ3mSM0YBoYf0C",
+          "type": "singleLineText",
+          "isPrimary": true
+        },
+        {
+          "name": "Linked Lead",
+          "id": "fldY96UR9aSpTwDLYmZ",
+          "type": "link",
+          "isPrimary": false
+        },
+        {
+          "name": "Email Address",
+          "id": "fld9JtVJIwqXTutiT35",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "LinkedIn Profile",
+          "id": "fldpSUrY2V7tpvTIQdj",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Personalized Hook",
+          "id": "fldaoE4R5KI2P03xGBZ",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Sequence Status",
+          "id": "fldO31XBv13DqmDP8Ww",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Campaign ID",
+          "id": "fld9nGeKcE7IQazS16l",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Last Sent Date",
+          "id": "fldXZR4xt4A5kU11eIV",
+          "type": "date",
+          "isPrimary": false
+        },
+        {
+          "name": "Interaction Notes",
+          "id": "fldyvbwQXk1cs1GTArF",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Outreach Channel",
+          "id": "fldTwJZ5yJCwWJYUJU9",
+          "type": "singleSelect",
+          "isPrimary": false
+        }
+      ]
+    },
+    {
+      "group": "template",
+      "name": "Asset_Library",
+      "id": "tblAbsreCM1l8MDYuCU",
+      "fields": [
+        {
+          "name": "Asset Name",
+          "id": "fldthTZq8gqSX2vBplo",
+          "type": "singleLineText",
+          "isPrimary": true
+        },
+        {
+          "name": "Related Content",
+          "id": "fldLF2q0VtHaTKjA1fR",
+          "type": "link",
+          "isPrimary": false
+        },
+        {
+          "name": "Asset Type",
+          "id": "fldCYDMexx7XUTnhUdK",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Asset File",
+          "id": "fldUx51DeqL9YkZ229E",
+          "type": "attachment",
+          "isPrimary": false
+        },
+        {
+          "name": "Asset URL",
+          "id": "fldkBGyWVJAJLPcKzf8",
+          "type": "singleLineText",
+          "isPrimary": false
+        },
+        {
+          "name": "Generated By",
+          "id": "fldz4VkNmdq1DgZKsgk",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Usage Notes",
+          "id": "fldqfjZf9PzPd4uLm84",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Created Date",
+          "id": "flduTFBtkKUDSknzBsL",
+          "type": "date",
+          "isPrimary": false
+        }
+      ]
+    },
+    {
+      "group": "template",
+      "name": "Automation_Log",
+      "id": "tblh4J2Tv0IvE5HeGx0",
+      "fields": [
+        {
+          "name": "Log ID",
+          "id": "fldRDo2x15YKxE6M6yJ",
+          "type": "singleLineText",
+          "isPrimary": true
+        },
+        {
+          "name": "Related Lead",
+          "id": "fldV2dO4why1NoeRMfV",
+          "type": "link",
+          "isPrimary": false
+        },
+        {
+          "name": "Related Content",
+          "id": "fld7pbYVvTQHiRDozev",
+          "type": "link",
+          "isPrimary": false
+        },
+        {
+          "name": "Action Type",
+          "id": "flduZ61tcU6ndPsBbzy",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Status",
+          "id": "fldr7VFL9SN3ooz3lxN",
+          "type": "singleSelect",
+          "isPrimary": false
+        },
+        {
+          "name": "Summary",
+          "id": "fldrLh3CUfSPZAQZTXa",
+          "type": "longText",
+          "isPrimary": false
+        },
+        {
+          "name": "Credits Used",
+          "id": "fldNLeyxzOgfTnnqdlo",
+          "type": "number",
+          "isPrimary": false
+        },
+        {
+          "name": "Timestamp",
+          "id": "fldIf0JkC9qCoODaERP",
+          "type": "date",
+          "isPrimary": false
+        },
+        {
+          "name": "Error Message",
+          "id": "fldWyvb1kMp1dqBiSeD",
+          "type": "longText",
+          "isPrimary": false
+        }
+      ]
+    }
+  ],
+  "resourceUrlPatterns": {
+    "base": "https://app.teable.ai/base/{baseId}",
+    "table": "https://app.teable.ai/base/{baseId}/table/{tableId}",
+    "view": "https://app.teable.ai/base/{baseId}/table/{tableId}/{viewId}",
+    "record": "https://app.teable.ai/base/{baseId}/table/{tableId}/{viewId}?recordId={recordId}"
+  },
+  "deviations": [
+    "The client template is a folder inside the Master Control Base, not a separate base.",
+    "TEMPLATE_EXECUTIVE_WORKSPACE_BASE_ID is intentionally blank because cloning this whole base would expose private Master Control tables.",
+    "Teable represents email and URL fields as singleLineText fields with showAs=email or showAs=url.",
+    "Teable automatically creates reciprocal backlink fields for two-way link relationships, so linked tables contain additional generated fields.",
+    "No webhook, Cloudflare Worker, email delivery, or other external workflow was deployed."
+  ],
+  "apiConstraints": [
+    "Do not clone the current base for a client: it contains Executive_Directory, API_Credit_Ledger, provisioning logs, global variables, and master prompts.",
+    "A clone-safe production design needs a separate template base or code that copies only the template folder tables.",
+    "Cloned tables and fields receive new IDs. Discover them by stable table and field names after provisioning and persist the resulting mapping; do not reuse IDs from this manifest for a cloned base.",
+    "For link fields, resolve and write linked record IDs. Avoid title-only matching where primary values may not be unique.",
+    "Upload files through Teable attachment upload first, then write the returned attachment token/object to attachment fields.",
+    "Send date-time values as ISO 8601 timestamps. Teable stores dates in UTC while these fields display in America/Los_Angeles.",
+    "Use typecast-aware record creation for select, multi-select, date, user, and link values, and handle validation errors for unknown choices.",
+    "Keep API keys and private secrets in Cloudflare secrets or scoped environment storage, not Global_System_Variables."
+  ]
+}
