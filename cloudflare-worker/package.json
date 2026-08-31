@@ -8,7 +8,8 @@
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "typecheck": "tsc --noEmit",
-    "tail": "wrangler tail"
+    "tail": "wrangler tail",
+    "seed:gsv": "node ../scripts/seed-global-vars.mjs"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250204.0",
