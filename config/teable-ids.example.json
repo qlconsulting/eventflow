@@ -1,0 +1,51 @@
+{
+  "_comment": "Fill after Teable returns the implementation ID dump. Copy values into cloudflare-worker/.dev.vars and wrangler.toml [vars]. Never put API keys here.",
+  "masterControlBase": {
+    "baseId": "PENDING_TEABLE",
+    "tables": {
+      "Executive_Directory": "PENDING_TEABLE",
+      "Provisioning_Log": "PENDING_TEABLE",
+      "Master_Prompt_Templates": "PENDING_TEABLE",
+      "Tone_Persona_Matrix": "PENDING_TEABLE",
+      "Global_System_Variables": "PENDING_TEABLE"
+    }
+  },
+  "templateExecutiveWorkspace": {
+    "baseId": "PENDING_TEABLE",
+    "baseName": "[TEMPLATE] The Leverage Lab - Executive Workspace",
+    "tables": {
+      "Client_Profile": "PENDING_TEABLE",
+      "Web_Properties": "PENDING_TEABLE",
+      "Prompt_Library": "PENDING_TEABLE",
+      "Inbox_Leads": "PENDING_TEABLE",
+      "Research_Runs": "PENDING_TEABLE",
+      "Thought_Leadership": "PENDING_TEABLE",
+      "Outreach_Queue": "PENDING_TEABLE",
+      "Asset_Library": "PENDING_TEABLE",
+      "Automation_Log": "PENDING_TEABLE"
+    }
+  },
+  "globalSystemVariables": {
+    "TEMPLATE_EXECUTIVE_WORKSPACE_BASE_ID": "PENDING_TEABLE",
+    "LAB_DASHBOARD_URL": "https://lab.theleveragelab.com",
+    "WORKER_API_BASE_URL": "https://api.theleveragelab.com",
+    "CHROME_EXTENSION_INSTALL_URL": "TBD",
+    "DASHFORM_FORM_ID": "TBD",
+    "DEFAULT_TIMEZONE": "America/Los_Angeles",
+    "MASTER_TEMPLATE_VERSION": "v1.0",
+    "MAINTENANCE_MODE": "false",
+    "WELCOME_EMAIL_FROM": "TBD"
+  },
+  "dashformSampleMapping": {
+    "form_id": "frm_leverage_lab_intake",
+    "answers.exec_email": "Executive_Directory.Executive Email + Client_Profile.Executive Email",
+    "answers.exec_name": "Client_Profile.Executive Name",
+    "answers.company_name": "Executive_Directory.Company Name + Client_Profile.Company Name",
+    "answers.company_website": "Executive_Directory.Company Website + Client_Profile.Company Website",
+    "answers.executive_linkedin": "Executive_Directory.Executive LinkedIn + Client_Profile.Executive LinkedIn",
+    "answers.brand_tone": "Client_Profile.Brand Tone (Tone_Persona_Matrix)",
+    "answers.web_management_client": "Client_Profile.Web Management Client",
+    "answers.web_management_scope": "Client_Profile.Web Management Scope",
+    "submission_id": "Executive_Directory.Dashform Submission ID"
+  }
+}

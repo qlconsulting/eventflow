@@ -38,6 +38,21 @@ npm run dev
 
 Copy `config/.env.example` to `cloudflare-worker/.dev.vars` for local Wrangler. Production secrets stay in Cloudflare dashboard / `wrangler secret put`. Never commit `.env`, `.dev.vars`, or `cloudflare-worker/wrangler.toml`.
 
+### Teable prep (blocked on ID dump)
+
+Paste Teable’s implementation reply into the next chat turn. Until then, keep placeholders in `config/teable-ids.example.json` and Wrangler `[vars]`:
+
+| Need from Teable | Worker binding |
+|------------------|----------------|
+| Master Control Base ID | `TEABLE_MASTER_BASE_ID` |
+| `[TEMPLATE] The Leverage Lab - Executive Workspace` Base ID | `TEABLE_TEMPLATE_BASE_ID` |
+| `Executive_Directory` table ID | `TEABLE_EXECUTIVE_DIRECTORY_TABLE_ID` |
+| `Provisioning_Log` / `Master_Prompt_Templates` / `Tone_Persona_Matrix` / `Global_System_Variables` | matching `TEABLE_*_TABLE_ID` vars |
+| Template table IDs (schema reference) | `TEABLE_TMPL_*_TABLE_ID` |
+| API constraints on base duplicate / links / attachments | documented in PR follow-up |
+
+Dashform webhook is **not** enabled yet — `/api/onboarding` accepts the sample envelope for mapping/tests only.
+
 ## API surface (Worker)
 
 | Method | Path | Purpose |

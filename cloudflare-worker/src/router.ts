@@ -2,7 +2,7 @@
  * HTTP router for The Leverage Lab Worker.
  */
 
-import type { Env, DashformOnboardingPayload, OrchestrateRequest } from './types';
+import type { Env, OrchestrateRequest } from './types';
 import { verifyUserJwt } from './utils/auth';
 import { jsonError, jsonOk } from './utils/helpers';
 import { handleOnboarding, listPromptTemplates } from './services/teable';
@@ -13,16 +13,36 @@ export async function handleRequest(request: Request, env: Env): Promise<Respons
   const path = url.pathname.replace(/\/+$/, '') || '/';
 
   if (request.method === 'GET' && (path === '/api/health' || path === '/health')) {
-    return jsonOk({ status: 'ok', service: 'the-leverage-lab-api', env: env.ENVIRONMENT });
+    return jsonOk({
+      status: 'ok',
+      service: 'the-leverage-lab-api',
+      env: env.ENVIRONMENT,
+      teableConfigured: Boolean(
+        env.TEABLE_MASTER_BASE_ID &&
+          env.TEABLE_MASTER_BASE_ID !== 'PENDING_TEABLE' &&
+          env.TEABLE_TEMPLATE_BASE_ID &&
+          env.TEABLE_TEMPLATE_BASE_ID !== 'PENDING_TEABLE',
+      ),
+    });
   }
 
   if (request.method === 'POST' && path === '/api/onboarding') {
-    let body: DashformOnboardingPayload;
+    let body: unknown;
     try {
-      body = (await request.json()) as DashformOnboardingPayload;
+      body = await request.json();
     } catch {
       return jsonError(400, 'INVALID_JSON', 'Request body must be valid JSON');
     }
+
+    // Prefer header secret when present (Dashform-friendly)
+    const headerSecret =
+      request.headers.get('X-Webhook-Secret') ||
+      request.headers.get('X-Dashform-Secret') ||
+      undefined;
+    if (headerSecret && body && typeof body === 'object') {
+      (body as Record<string, unknown>).webhookSecret = headerSecret;
+    }
+
     return handleOnboarding(body, env);
   }
 

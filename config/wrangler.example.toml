@@ -1,5 +1,5 @@
 # Example Wrangler config for The Leverage Lab Cloudflare Worker.
-# Copy to cloudflare-worker/wrangler.toml and fill in real values.
+# Copy to cloudflare-worker/wrangler.toml and fill in real values from Teable's ID dump.
 # Do NOT commit cloudflare-worker/wrangler.toml (see root .gitignore).
 
 name = "the-leverage-lab-api"
@@ -7,13 +7,30 @@ main = "src/index.ts"
 compatibility_date = "2025-02-01"
 compatibility_flags = ["nodejs_compat"]
 
-# Public non-secret settings (override per environment as needed)
 [vars]
 ENVIRONMENT = "development"
 API_BASE_URL = "https://api.theleveragelab.com"
-ALLOWED_ORIGINS = "chrome-extension://YOUR_EXTENSION_ID,https://app.theleveragelab.com"
-TEABLE_MASTER_BASE_ID = "REPLACE_WITH_MASTER_BASE_ID"
-TEABLE_MASTER_TABLE_ID = "REPLACE_WITH_CLIENT_REGISTRY_TABLE_ID"
+ALLOWED_ORIGINS = "chrome-extension://YOUR_EXTENSION_ID,https://lab.theleveragelab.com,https://app.theleveragelab.com"
+LAB_DASHBOARD_URL = "https://lab.theleveragelab.com"
+DEFAULT_TIMEZONE = "America/Los_Angeles"
+
+# Fill after Teable prep (see config/teable-ids.example.json)
+TEABLE_MASTER_BASE_ID = "PENDING_TEABLE"
+TEABLE_TEMPLATE_BASE_ID = "PENDING_TEABLE"
+TEABLE_EXECUTIVE_DIRECTORY_TABLE_ID = "PENDING_TEABLE"
+TEABLE_PROVISIONING_LOG_TABLE_ID = "PENDING_TEABLE"
+TEABLE_MASTER_PROMPT_TEMPLATES_TABLE_ID = "PENDING_TEABLE"
+TEABLE_TONE_PERSONA_MATRIX_TABLE_ID = "PENDING_TEABLE"
+TEABLE_GLOBAL_SYSTEM_VARIABLES_TABLE_ID = "PENDING_TEABLE"
+TEABLE_TMPL_CLIENT_PROFILE_TABLE_ID = "PENDING_TEABLE"
+TEABLE_TMPL_PROMPT_LIBRARY_TABLE_ID = "PENDING_TEABLE"
+TEABLE_TMPL_INBOX_LEADS_TABLE_ID = "PENDING_TEABLE"
+TEABLE_TMPL_RESEARCH_RUNS_TABLE_ID = "PENDING_TEABLE"
+TEABLE_TMPL_THOUGHT_LEADERSHIP_TABLE_ID = "PENDING_TEABLE"
+TEABLE_TMPL_OUTREACH_QUEUE_TABLE_ID = "PENDING_TEABLE"
+TEABLE_TMPL_ASSET_LIBRARY_TABLE_ID = "PENDING_TEABLE"
+TEABLE_TMPL_AUTOMATION_LOG_TABLE_ID = "PENDING_TEABLE"
+TEABLE_TMPL_WEB_PROPERTIES_TABLE_ID = "PENDING_TEABLE"
 
 # Secrets — set via `wrangler secret put <NAME>` (never paste into this file in git):
 # TEABLE_API_KEY
@@ -24,7 +41,7 @@ TEABLE_MASTER_TABLE_ID = "REPLACE_WITH_CLIENT_REGISTRY_TABLE_ID"
 # JWT_SECRET
 # DASHFORM_WEBHOOK_SECRET
 
-# Optional: bind a custom route in production
+# Optional production route
 # [[routes]]
 # pattern = "api.theleveragelab.com/*"
 # zone_name = "theleveragelab.com"
