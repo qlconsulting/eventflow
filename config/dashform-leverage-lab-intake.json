@@ -162,6 +162,10 @@
     "shareUrlHint": "https://getaiform.com/f/nr0HMXaCSM",
     "editUrlHint": "https://getaiform.com/forms/5d3e962a-bc3a-41c3-b88b-afbfb45aab78",
     "status": "shell_created_via_rest_api",
-    "note": "REST API accepted metadata; full questions/theme likely need MCP OAuth create_form or Dashform UI. Do not wire webhook yet."
+    "note": "REST cannot persist/verify questions. Finalize in Dashform UI or via MCP OAuth using this schema. Share URL still 404 until published. Do not wire webhook yet. See docs/pre-webhook-blockers.md.",
+    "blockers": [
+      "Cloudflare: wrangler secret put TEABLE_API_KEY (agent lacks wrangler login)",
+      "Dashform: finalize+publish questions for nr0HMXaCSM and verify answer keys"
+    ]
   }
 }
