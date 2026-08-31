@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Leverage Lab</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="brand">
+        <p class="brand__mark">The Leverage Lab</p>
+        <p class="brand__tag">Executive research & outreach</p>
+      </header>
+
+      <section class="panel" aria-labelledby="target-label">
+        <label id="target-label" for="target-url">Active target</label>
+        <input id="target-url" type="url" readonly placeholder="Loading tab URL…" />
+      </section>
+
+      <section class="panel" aria-labelledby="prompt-label">
+        <label id="prompt-label" for="prompt-select">Prompt template</label>
+        <select id="prompt-select" disabled>
+          <option value="">Sign in to load templates</option>
+        </select>
+      </section>
+
+      <section class="panel panel--options">
+        <label class="check">
+          <input type="checkbox" id="opt-visuals" checked />
+          <span>Generate visuals</span>
+        </label>
+        <label class="check">
+          <input type="checkbox" id="opt-audio" />
+          <span>Generate audio</span>
+        </label>
+        <label class="check">
+          <input type="checkbox" id="opt-fuse" />
+          <span>Sync to Fuse</span>
+        </label>
+      </section>
+
+      <div class="actions">
+        <button type="button" id="btn-run" class="btn btn--primary" disabled>Run pipeline</button>
+        <button type="button" id="btn-refresh" class="btn btn--ghost">Refresh templates</button>
+      </div>
+
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </div>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>
