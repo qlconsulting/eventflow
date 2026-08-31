@@ -53,6 +53,14 @@ Paste Teable’s implementation reply into the next chat turn. Until then, keep 
 
 Dashform webhook is **not** enabled yet — `/api/onboarding` accepts the sample envelope for mapping/tests only.
 
+### Dashform MCP
+
+Repo config: `.cursor/mcp.json` → `https://getaiform.com/api/mcp` (OAuth 2.1).
+
+1. In **Cursor Desktop**: Settings → MCP → add Dashform (or open the [install deeplink](cursor://anysphere.cursor-deeplink/mcp/install?name=dashform&config=eyJ1cmwiOiJodHRwczovL2dldGFpZm9ybS5jb20vYXBpL21jcCJ9)) and complete OAuth.
+2. For **Cloud Agents**: ensure Dashform is allowed/authenticated for this environment; this run cannot call Dashform tools until that connection is live.
+3. After auth, use MCP to create the Leverage Lab intake form and sync `DASHFORM_FORM_ID` — still do **not** wire the live webhook until Teable IDs are in.
+
 ## API surface (Worker)
 
 | Method | Path | Purpose |
