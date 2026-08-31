@@ -1,0 +1,30 @@
+# Example Wrangler config for The Leverage Lab Cloudflare Worker.
+# Copy to cloudflare-worker/wrangler.toml and fill in real values.
+# Do NOT commit cloudflare-worker/wrangler.toml (see root .gitignore).
+
+name = "the-leverage-lab-api"
+main = "src/index.ts"
+compatibility_date = "2025-02-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Public non-secret settings (override per environment as needed)
+[vars]
+ENVIRONMENT = "development"
+API_BASE_URL = "https://api.theleveragelab.com"
+ALLOWED_ORIGINS = "chrome-extension://YOUR_EXTENSION_ID,https://app.theleveragelab.com"
+TEABLE_MASTER_BASE_ID = "REPLACE_WITH_MASTER_BASE_ID"
+TEABLE_MASTER_TABLE_ID = "REPLACE_WITH_CLIENT_REGISTRY_TABLE_ID"
+
+# Secrets — set via `wrangler secret put <NAME>` (never paste into this file in git):
+# TEABLE_API_KEY
+# RETRIEVER_API_KEY
+# KATTEB_API_KEY
+# QOLABA_API_KEY
+# FUSE_API_KEY
+# JWT_SECRET
+# DASHFORM_WEBHOOK_SECRET
+
+# Optional: bind a custom route in production
+# [[routes]]
+# pattern = "api.theleveragelab.com/*"
+# zone_name = "theleveragelab.com"
