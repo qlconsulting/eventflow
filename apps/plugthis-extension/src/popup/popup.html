@@ -8,15 +8,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@560;600&family=Outfit:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
     <div class="shell">
       <header class="brand">
-        <p class="brand__mark">PlugThis.ai</p>
-        <p class="brand__sub">The Leverage Lab</p>
+        <div class="brand__logo-frame">
+          <img
+            class="brand__logo"
+            src="../assets/the-leverage-lab-logo.jpg"
+            width="40"
+            height="40"
+            alt="The Leverage Lab"
+          />
+        </div>
+        <div class="brand__copy">
+          <p class="brand__mark">The Leverage Lab</p>
+          <p class="brand__sub">Executive assistant</p>
+        </div>
       </header>
 
       <section class="page" aria-label="Current page">
@@ -33,6 +44,24 @@
         <button type="button" class="btn" data-action="draft_email">Draft Email Hook</button>
         <button type="button" class="btn" data-action="log_web_insight">Log Web Insight</button>
       </section>
+
+      <div
+        id="thinking"
+        class="thinking"
+        role="status"
+        aria-live="polite"
+        aria-label="Agent is thinking"
+        hidden
+      >
+        <div class="running-footer__graphic" aria-hidden="true">
+          <span class="running-footer__graphic-ring running-footer__graphic-ring--outer"></span>
+          <span class="running-footer__graphic-ring running-footer__graphic-ring--inner"></span>
+          <span class="running-footer__graphic-core"><span></span></span>
+          <i class="running-footer__graphic-node running-footer__graphic-node--one"></i>
+          <i class="running-footer__graphic-node running-footer__graphic-node--two"></i>
+          <i class="running-footer__graphic-node running-footer__graphic-node--three"></i>
+        </div>
+      </div>
 
       <p id="status" class="status" role="status" aria-live="polite"></p>
 
