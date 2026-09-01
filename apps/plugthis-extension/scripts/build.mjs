@@ -15,6 +15,7 @@ function prepareStatic() {
   mkdirSync(join(dist, 'background'), { recursive: true });
   mkdirSync(join(dist, 'content'), { recursive: true });
   mkdirSync(join(dist, 'mock'), { recursive: true });
+  mkdirSync(join(dist, 'assets', 'icons'), { recursive: true });
 
   cpSync(join(root, 'manifest.json'), join(dist, 'manifest.json'));
   cpSync(join(root, 'src/popup/popup.html'), join(dist, 'popup/popup.html'));
@@ -22,6 +23,7 @@ function prepareStatic() {
   cpSync(join(root, 'src/options/options.html'), join(dist, 'options/options.html'));
   cpSync(join(root, 'src/options/options.css'), join(dist, 'options/options.css'));
   cpSync(join(root, 'src/mock'), join(dist, 'mock'), { recursive: true });
+  cpSync(join(root, 'src/assets'), join(dist, 'assets'), { recursive: true });
 
   // Fix HTML script refs to compiled .js
   for (const page of ['popup', 'options']) {

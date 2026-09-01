@@ -3,65 +3,112 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>PlugThis.ai Options</title>
+    <title>The Leverage Lab — Sign in</title>
     <link rel="stylesheet" href="options.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@560;600&family=Outfit:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
-    <main class="wrap">
-      <header>
-        <p class="eyebrow">PlugThis.ai · The Leverage Lab</p>
-        <h1>Extension options</h1>
-        <p class="lede">
-          Configure the Worker endpoint and executive identity. Never paste Teable tokens, AI vendor
-          keys, or other secrets here — the Worker holds those.
-        </p>
-      </header>
+    <div class="auth-shell">
+      <img
+        class="auth-globe"
+        src="../assets/globe.svg"
+        alt=""
+        aria-hidden="true"
+        draggable="false"
+      />
 
-      <form id="settings-form" class="form">
-        <label>
-          Worker API Base URL
-          <input id="workerApiBaseUrl" type="url" required placeholder="https://api.theleveragelab.com" />
-        </label>
+      <div class="auth-card" role="region" aria-label="Authentication">
+        <header class="auth-card__header">
+          <div class="auth-logo-frame">
+            <img
+              class="auth-logo"
+              src="../assets/the-leverage-lab-logo.jpg"
+              alt="The Leverage Lab logo"
+            />
+          </div>
+          <h1 class="auth-card__title">Welcome</h1>
+          <p class="auth-card__description">Sign in to continue</p>
+        </header>
 
-        <label>
-          Extension License Key
-          <input id="extensionLicenseKey" type="text" autocomplete="off" placeholder="ext_…" />
-        </label>
+        <div class="auth-card__content">
+          <p id="status" class="auth-alert" role="status" aria-live="polite" hidden></p>
 
-        <label>
-          Executive Email
-          <input id="executiveEmail" type="email" autocomplete="off" placeholder="you@company.com" />
-        </label>
+          <form id="settings-form" class="auth-form" autocomplete="off">
+            <div class="auth-field">
+              <label class="auth-label" for="executiveEmail">Email</label>
+              <input
+                id="executiveEmail"
+                class="auth-input"
+                type="email"
+                placeholder="you@example.com"
+                autocomplete="email"
+                required
+              />
+            </div>
 
-        <label>
-          Tenant ID <span class="optional">(optional)</span>
-          <input id="tenantId" type="text" autocomplete="off" placeholder="optional" />
-        </label>
+            <div class="auth-field">
+              <label class="auth-label" for="extensionLicenseKey">Extension license key</label>
+              <input
+                id="extensionLicenseKey"
+                class="auth-input"
+                type="text"
+                placeholder="ext_…"
+                autocomplete="off"
+              />
+            </div>
 
-        <label class="check">
-          <input id="debugMode" type="checkbox" />
-          <span>Debug Mode</span>
-        </label>
+            <div class="auth-field">
+              <label class="auth-label" for="workerApiBaseUrl">Worker API base URL</label>
+              <input
+                id="workerApiBaseUrl"
+                class="auth-input"
+                type="url"
+                placeholder="https://api.theleveragelab.com"
+                required
+              />
+            </div>
 
-        <label class="check">
-          <input id="mockMode" type="checkbox" />
-          <span>Mock Mode (recommended until Worker + Teable template base are live)</span>
-        </label>
+            <div class="auth-field">
+              <label class="auth-label" for="tenantId">
+                Tenant ID <span class="auth-optional">(optional)</span>
+              </label>
+              <input
+                id="tenantId"
+                class="auth-input"
+                type="text"
+                placeholder="optional"
+                autocomplete="off"
+              />
+            </div>
 
-        <div class="actions">
-          <button type="submit" class="btn">Save settings</button>
-          <button type="button" id="validate" class="btn btn--ghost">Validate license</button>
+            <label class="auth-check">
+              <input id="debugMode" type="checkbox" />
+              <span>Debug Mode</span>
+            </label>
+
+            <label class="auth-check">
+              <input id="mockMode" type="checkbox" />
+              <span>Mock Mode (recommended until Worker is live)</span>
+            </label>
+
+            <button type="submit" class="auth-btn auth-btn--primary">Save &amp; continue</button>
+            <button type="button" id="validate" class="auth-btn auth-btn--outline">
+              <img src="../assets/icons/teable.svg" alt="" class="auth-btn__icon" aria-hidden="true" />
+              Validate license
+            </button>
+          </form>
+
+          <p class="auth-footnote">
+            Never paste Teable tokens, AI vendor keys, or other secrets here — the Worker holds those.
+          </p>
         </div>
-      </form>
-
-      <p id="status" class="status" role="status" aria-live="polite"></p>
-    </main>
+      </div>
+    </div>
     <script type="module" src="options.ts"></script>
   </body>
 </html>

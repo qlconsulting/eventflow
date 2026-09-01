@@ -10,6 +10,7 @@ const els = {
   status: document.getElementById('status') as HTMLElement,
   modeBadge: document.getElementById('mode-badge') as HTMLElement,
   openOptions: document.getElementById('open-options') as HTMLButtonElement,
+  thinking: document.getElementById('thinking') as HTMLElement,
 };
 
 function setStatus(message: string, kind: '' | 'is-error' | 'is-success' = '') {
@@ -23,6 +24,8 @@ function setBusy(busy: boolean) {
     btn.disabled = busy;
     btn.classList.toggle('btn--busy', busy && btn.dataset.pending === '1');
   });
+  els.thinking.hidden = !busy;
+  els.thinking.classList.toggle('is-active', busy);
 }
 
 async function loadPageMeta() {

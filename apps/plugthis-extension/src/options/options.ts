@@ -20,6 +20,13 @@ const fields = {
 };
 
 function setStatus(message: string, kind: '' | 'is-error' | 'is-success' = '') {
+  if (!message) {
+    statusEl.hidden = true;
+    statusEl.textContent = '';
+    statusEl.classList.remove('is-error', 'is-success');
+    return;
+  }
+  statusEl.hidden = false;
   statusEl.textContent = message;
   statusEl.classList.remove('is-error', 'is-success');
   if (kind) statusEl.classList.add(kind);
