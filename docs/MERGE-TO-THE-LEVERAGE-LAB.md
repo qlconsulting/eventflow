@@ -10,13 +10,15 @@ This Cloud Agent **cannot create** `qlconsulting/the-leverage-lab` (GitHub App t
 | PR (eventflow) | https://github.com/qlconsulting/eventflow/pull/1 |
 | Bundle artifact | `the-leverage-lab.bundle` (commits `main..cursor/init-leverage-lab-workspace-2f61`) |
 
-## Human step — create the empty repo
+## Human step — create the empty repo + grant Cursor access
 
-1. GitHub → org **qlconsulting** → **New repository**
+1. GitHub → **qlconsulting** account → **New repository**
 2. Name: `the-leverage-lab`
 3. Private (recommended), **no** README/license (empty)
-4. Grant Cursor GitHub App access to the new repo
-5. Start a **new Cloud Agent** with primary repo `github.com/qlconsulting/the-leverage-lab`
+4. **Required:** Grant the Cursor GitHub App access to the new repo. Installations using *Selected repositories* will still 404 for agents until this is done:
+   - https://github.com/settings/installations → **Cursor** → **Configure**
+   - Add `qlconsulting/the-leverage-lab` (or switch to *All repositories*)
+5. Start a **new Cloud Agent** with primary repo `github.com/qlconsulting/the-leverage-lab` (this agent’s token is scoped to `eventflow` only until access is granted)
 
 ## New agent — import commands
 
